@@ -247,6 +247,11 @@ cursor: pointer;
 box-shadow: 0 6px 16px rgba(90, 45, 0,.4), inset 0 -4px 8px rgba(120, 70, 0,.35);
 z-index: 4;
 padding: 0;
+display: flex;
+align-items: center;
+justify-content: center;
+text-align: center;
+line-height: 1.25;
 }
 .hub-btn:active { transform: translate(-50%, -50%) scale(.95);}
 .hub-btn:disabled { cursor: default; filter: saturate(.55);}
@@ -577,14 +582,14 @@ color: #8a4a6e;
 }
 #coordRoulette .coord-draw-btn {
 margin-top: 16px;
-width: 156px;
-height: 156px;
-font-size: 20px;
-line-height: 1.45;
+width: 142px;
+height: 142px;
+font-size: 18px;
+line-height: 1.4;
 }
 #coordRoulette .coord-draw-btn .slot-draw-sub {
-font-size: 12.5px;
-margin-top: 4px;
+font-size: 11.5px;
+margin-top: 3px;
 }
 #coordRoulette .slot-result {
 width: 100%;
@@ -640,7 +645,7 @@ color: #7a5570;
 }
 @media (max-width: 380px) {
 #coordRoulette { padding: 26px 16px 22px;}
-#coordRoulette .coord-draw-btn { width: 148px; height: 148px;}
+#coordRoulette .coord-draw-btn { width: 134px; height: 134px;}
 }
 
 /* ---------- 開運グッズ 1位ルーレット（目立たせ・ゴールド・文字拡大・整列） ---------- */
@@ -716,7 +721,6 @@ color: #7a5a16;
 overflow-wrap: break-word;
 }
 #rankRoulette .rank-draw-btn {
-display: block;
 margin: 10px auto 0;
 width: 118px;
 height: 118px;
@@ -724,7 +728,7 @@ font-size: 17px;
 line-height: 1.45;
 }
 #rankRoulette .rank-draw-btn .slot-draw-sub {
-font-size: 12.5px;
+font-size: 11.5px;
 margin-top: 4px;
 }
 #rankRoulette .slot-result {
@@ -836,6 +840,8 @@ box-shadow: inset 0 0 0 3px #ccc;
 .song-status { min-height: 20px; font-size: 12.5px; font-weight: 700; color: var(--ink-soft); margin: 2px 0 0;}
 .song-draw-btn {
 margin-top: 12px;
+margin-left: auto;
+margin-right: auto;
 width: 136px; height: 136px;
 border-radius: 50%;
 border: none;
@@ -843,9 +849,15 @@ cursor: pointer;
 font-family: inherit;
 background: radial-gradient(circle at 32% 28%, #ff8a75, #e8402f 55%, #c22e20);
 color: #fff;
-font-size: 17px;
+font-size: 14.5px;
 font-weight: 900;
 line-height: 1.4;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+text-align: center;
+padding: 8px 10px;
 box-shadow: 0 8px 0 #8f1f14, 0 14px 22px rgba(194, 46, 32,.4);
 transition: transform .08s ease, box-shadow .08s ease;
 -webkit-tap-highlight-color: transparent;
@@ -914,6 +926,8 @@ cursor: pointer;
 .slot-status { min-height: 20px; font-size: 12.5px; font-weight: 700; color: var(--ink-soft); margin: 2px 0 0;}
 .slot-draw-btn {
 margin-top: 12px;
+margin-left: auto;
+margin-right: auto;
 width: 136px; height: 136px;
 border-radius: 50%;
 border: none;
@@ -923,6 +937,12 @@ color: #fff;
 font-size: 17px;
 font-weight: 900;
 line-height: 1.4;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+text-align: center;
+padding: 8px 10px;
 transition: transform .08s ease, box-shadow .08s ease;
 -webkit-tap-highlight-color: transparent;
 }
