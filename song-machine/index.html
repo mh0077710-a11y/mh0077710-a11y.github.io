@@ -1,0 +1,663 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="color-scheme" content="light dark" />
+    <link rel="icon" href="data:," />
+    <title>今日の1曲マシン（試作）</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        color-scheme: light dark;
+        --sky-top: #7ec8f7;
+        --sky-mid: #aee3ff;
+        --sky-bottom: #e8f9ff;
+        --card: #ffffff;
+        --ink: #3a2c22;
+        --ink-soft: #6b5a4c;
+        --accent-red: #e8402f;
+        --accent-red-dark: #c22e20;
+        --gold: #f5b81d;
+        --btn-article: #2e7fc4;
+        --btn-room: #bf0000;
+        --btn-video: #3d3d3d;
+        --shadow: 0 10px 30px rgba(31, 90, 140, 0.22);
+        --result-bg: #fffdf5;
+        --result-border: #ffd968;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --sky-top: #123a5e;
+          --sky-mid: #1b4f7d;
+          --sky-bottom: #0d2c47;
+          --card: #fdfdf8;
+          --ink: #33291f;
+          --ink-soft: #6b5a4c;
+          --shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+        }
+      }
+      * { box-sizing: border-box; }
+      html, body { margin: 0; padding: 0; }
+      body {
+        font-family: "M PLUS Rounded 1c", "Hiragino Maru Gothic ProN", sans-serif;
+        color: var(--ink);
+        background: linear-gradient(180deg, var(--sky-top) 0%, var(--sky-mid) 55%, var(--sky-bottom) 100%);
+        min-height: 100vh;
+        -webkit-text-size-adjust: 100%;
+      }
+      .rainbow {
+        height: 10px;
+        background: linear-gradient(90deg, #ff5a5a, #ff9f2e, #ffd92e, #59c95e, #2ea8ff, #7a5cff, #ff5ab0);
+      }
+      .wrap {
+        max-width: 480px;
+        margin: 0 auto;
+        padding: 20px 16px 40px;
+      }
+      header { text-align: center; padding: 8px 4px 4px; }
+      .deco { font-size: 22px; letter-spacing: 8px; }
+      h1 {
+        margin: 6px 0 8px;
+        font-size: 34px;
+        font-weight: 800;
+        color: #ffe93d;
+        text-shadow:
+          2px 0 0 #7a4a12, -2px 0 0 #7a4a12, 0 2px 0 #7a4a12, 0 -2px 0 #7a4a12,
+          2px 2px 0 #7a4a12, -2px 2px 0 #7a4a12, 2px -2px 0 #7a4a12, -2px -2px 0 #7a4a12,
+          0 6px 0 rgba(122, 74, 18, 0.35);
+        letter-spacing: 1px;
+      }
+      .lead {
+        margin: 0 auto;
+        max-width: 400px;
+        font-size: 13.5px;
+        font-weight: 700;
+        line-height: 1.7;
+        color: #14405f;
+        background: rgba(255, 255, 255, 0.65);
+        border-radius: 999px;
+        padding: 8px 16px;
+      }
+      @media (prefers-color-scheme: dark) {
+        .lead { color: #eaf6ff; background: rgba(255, 255, 255, 0.14); }
+      }
+      .card {
+        background: var(--card);
+        border-radius: 28px;
+        box-shadow: var(--shadow);
+        padding: 22px 18px 24px;
+        margin-top: 18px;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+      }
+      .card::before {
+        content: "";
+        position: absolute; inset: 0 0 auto 0; height: 8px;
+        background: linear-gradient(90deg, #ff5a5a, #ff9f2e, #ffd92e, #59c95e, #2ea8ff, #7a5cff, #ff5ab0);
+      }
+      /* レコード盤 */
+      .stage { position: relative; width: 250px; height: 250px; margin: 10px auto 4px; }
+      .disc {
+        position: absolute; inset: 0;
+        border-radius: 50%;
+        background:
+          repeating-radial-gradient(circle at center, #222 0 3px, #2e2e2e 3px 6px);
+        box-shadow: 0 12px 28px rgba(0, 0, 0, 0.35), inset 0 0 0 4px #111;
+      }
+      .disc.spinning { animation: spin 0.55s linear infinite; }
+      .disc.idle { animation: spin 7s linear infinite; }
+      @keyframes spin { to { transform: rotate(360deg); } }
+      .jacket-window {
+        position: absolute;
+        top: 50%; left: 50%;
+        width: 158px; height: 158px;
+        transform: translate(-50%, -50%);
+        border-radius: 50%;
+        overflow: hidden;
+        border: 5px solid #fff;
+        box-shadow: 0 0 0 3px rgba(0,0,0,0.25), 0 6px 16px rgba(0,0,0,0.3);
+        background: #f3e9d2;
+        display: flex; align-items: center; justify-content: center;
+      }
+      .jacket-window img { width: 100%; height: 100%; object-fit: cover; display: block; }
+      .jacket-window .placeholder { font-size: 44px; }
+      .jacket-window::after {
+        content: "";
+        position: absolute; top: 50%; left: 50%;
+        width: 20px; height: 20px;
+        transform: translate(-50%, -50%);
+        border-radius: 50%;
+        background: #fff;
+        box-shadow: inset 0 0 0 3px #ccc;
+      }
+      .sparkle {
+        position: absolute;
+        font-size: 19px;
+        opacity: 0;
+        pointer-events: none;
+      }
+      .sparkle.pop { animation: sparkle-pop 0.9s ease-out forwards; }
+      @keyframes sparkle-pop {
+        0% { opacity: 0; transform: scale(0.3) translateY(6px); }
+        35% { opacity: 1; transform: scale(1.25) translateY(-4px); }
+        100% { opacity: 0; transform: scale(1) translateY(-16px); }
+      }
+      .now-title {
+        min-height: 26px;
+        margin-top: 10px;
+        font-size: 16px;
+        font-weight: 800;
+        line-height: 1.4;
+      }
+      .now-title .artist { display: block; font-size: 12px; font-weight: 700; color: var(--ink-soft); }
+      .status { min-height: 20px; font-size: 12px; font-weight: 700; color: var(--ink-soft); margin-top: 2px; }
+      .draw-btn {
+        margin-top: 14px;
+        width: 152px; height: 152px;
+        border-radius: 50%;
+        border: none;
+        cursor: pointer;
+        background: radial-gradient(circle at 32% 28%, #ff8a75, var(--accent-red) 55%, var(--accent-red-dark));
+        color: #fff;
+        font-family: inherit;
+        font-size: 18px;
+        font-weight: 800;
+        line-height: 1.35;
+        box-shadow: 0 10px 0 #8f1f14, 0 18px 28px rgba(194, 46, 32, 0.4);
+        transition: transform 0.08s ease, box-shadow 0.08s ease;
+        -webkit-tap-highlight-color: transparent;
+      }
+      .draw-btn:active { transform: translateY(6px); box-shadow: 0 4px 0 #8f1f14, 0 10px 18px rgba(194, 46, 32, 0.4); }
+      .draw-btn:disabled { opacity: 0.75; cursor: wait; }
+      .draw-btn .btn-sub { display: block; font-size: 11px; font-weight: 700; opacity: 0.9; margin-top: 4px; }
+      /* 結果カード */
+      .result {
+        display: none;
+        margin-top: 22px;
+        background: var(--result-bg);
+        border: 3px solid var(--result-border);
+        border-radius: 22px;
+        padding: 18px 16px 16px;
+        text-align: center;
+      }
+      .result.show { display: block; animation: result-pop 0.45s cubic-bezier(0.2, 1.6, 0.4, 1) both; }
+      @keyframes result-pop {
+        0% { transform: scale(0.7); opacity: 0; }
+        100% { transform: scale(1); opacity: 1; }
+      }
+      .result .cap {
+        font-size: 13px; font-weight: 800; color: #b97e0a;
+        letter-spacing: 1px;
+      }
+      .result h2 { margin: 6px 0 2px; font-size: 21px; font-weight: 800; line-height: 1.35; }
+      .result .artist { font-size: 14px; font-weight: 700; color: var(--ink-soft); }
+      .result .presenter {
+        display: inline-block;
+        margin-top: 10px;
+        background: #ffe9a8;
+        color: #7a4a12;
+        font-size: 12px; font-weight: 800;
+        border-radius: 999px;
+        padding: 4px 12px;
+      }
+      .result .comment { margin: 10px 2px 4px; font-size: 13px; line-height: 1.75; font-weight: 700; }
+      .result .links { margin-top: 14px; display: flex; flex-direction: column; gap: 10px; }
+      .result .links a {
+        display: block;
+        text-decoration: none;
+        color: #fff;
+        font-weight: 800;
+        font-size: 14px;
+        border-radius: 999px;
+        padding: 11px 16px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.18);
+      }
+      .result .links a:active { transform: scale(0.98); }
+      .link-article { background: var(--btn-article); }
+      .link-room { background: var(--btn-room); }
+      .link-video { background: var(--btn-video); }
+      .pr-note { margin-top: 12px; font-size: 11px; color: var(--ink-soft); line-height: 1.6; }
+      .again-btn {
+        margin-top: 16px;
+        border: 3px solid var(--accent-red);
+        background: #fff;
+        color: var(--accent-red);
+        font-family: inherit;
+        font-size: 15px; font-weight: 800;
+        border-radius: 999px;
+        padding: 10px 26px;
+        cursor: pointer;
+        -webkit-tap-highlight-color: transparent;
+      }
+      .again-btn:active { transform: scale(0.97); }
+      footer {
+        margin-top: 20px;
+        text-align: center;
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 1.8;
+        color: #14405f;
+      }
+      @media (prefers-color-scheme: dark) { footer { color: #dcefff; } }
+      footer .foot-links { margin-top: 8px; display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+      footer .foot-links a {
+        color: #14405f;
+        background: rgba(255, 255, 255, 0.8);
+        border-radius: 999px;
+        padding: 7px 16px;
+        text-decoration: none;
+        font-weight: 800;
+      }
+      @media (prefers-color-scheme: dark) {
+        footer .foot-links a { color: #0d2c47; }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .disc.idle, .disc.spinning { animation-duration: 6s; }
+        .result.show { animation: none; }
+        .sparkle.pop { animation: none; opacity: 0; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="rainbow" aria-hidden="true"></div>
+    <div class="wrap">
+      <header>
+        <div class="deco" aria-hidden="true">🎧 ⛩️ 🐱</div>
+        <h1>🎵 今日の1曲</h1>
+        <p class="lead">おみくじ日和ラジオ「思い出の曲」から、今日のあなたにおすすめの1曲をどうぞ♪</p>
+      </header>
+
+      <main class="card">
+        <div class="stage" id="stage">
+          <div class="disc idle" id="disc" aria-hidden="true"></div>
+          <div class="jacket-window" id="jacketWindow">
+            <span class="placeholder" id="jacketPlaceholder" aria-hidden="true">🎵</span>
+            <img id="jacketImg" alt="" style="display:none" />
+          </div>
+          <span class="sparkle" style="top:2px; left:8px;">✨</span>
+          <span class="sparkle" style="top:0; right:12px;">⭐</span>
+          <span class="sparkle" style="bottom:14px; left:0;">🎶</span>
+          <span class="sparkle" style="bottom:6px; right:6px;">✨</span>
+          <span class="sparkle" style="top:44%; left:-8px;">🌸</span>
+          <span class="sparkle" style="top:40%; right:-8px;">🌸</span>
+        </div>
+
+        <div class="now-title" id="nowTitle">どの曲が出るかな？</div>
+        <div class="status" id="status">全17曲の中からランダムで選びます</div>
+
+        <button class="draw-btn" id="drawBtn" type="button">
+          🎵 今日の1曲を引く
+          <span class="btn-sub">タップしてね♪</span>
+        </button>
+
+        <section class="result" id="result" aria-live="polite">
+          <div class="cap">🎉 今日の1曲はこちら♪ 🎉</div>
+          <h2 id="rTitle"></h2>
+          <div class="artist" id="rArtist"></div>
+          <div><span class="presenter" id="rPresenter"></span></div>
+          <p class="comment" id="rComment"></p>
+          <div class="links" id="rLinks"></div>
+          <p class="pr-note">※CDのご案内は楽天ROOM・ブログ記事へのリンクです（PR）</p>
+          <button class="again-btn" id="againBtn" type="button">🔁 もう一度引く</button>
+        </section>
+      </main>
+
+      <footer>
+        <p>おみくじ日和ラジオ「思い出の曲」で紹介した全17曲から、<br />ランダムで1曲出ます。何度でも引けます♪</p>
+        <div class="foot-links">
+          <a href="https://is.gd/omikuji_link" target="_blank" rel="noopener">🔗 おみくじ日和 リンク集</a>
+          <a href="https://waka003.seesaa.net/" target="_blank" rel="noopener">📖 若大将ブログ</a>
+        </div>
+      </footer>
+    </div>
+
+    <script>
+      /* ============================================================
+         曲データ（1つのリストで管理しています）
+         ------------------------------------------------------------
+         曲を追加するときは、この配列に1件ふやすだけです。
+         他の部分（HTML・動き）は触らなくて大丈夫です。
+
+         1件の書き方：
+         {
+           title:    "曲名",
+           artist:   "歌手名",
+           presenter:"紹介してくれた人（神様・リン・看板猫など）",
+           comment:  "ひとこと紹介",
+           jacket:   "assets/ジャケット画像ファイル名.jpg",
+           article:  "記事のURL（なければ null）",
+           room:     "楽天ROOMのURL（なければ null）",
+           video:    "動画のURL（なければ null）",
+           videoLabel: "動画ボタンの文字（ラジオ本編は「▶ ラジオで聴く」）"
+         }
+         ============================================================ */
+      var SONGS = [
+        {
+          title: "津軽海峡・冬景色",
+          artist: "石川さゆり",
+          presenter: "大黒天様",
+          comment: "1977年、日本レコード大賞・歌唱賞に輝いた名曲",
+          jacket: "assets/j01-tsugaru.jpg",
+          article: "https://waka003.seesaa.net/article/521950119.html",
+          room: null,
+          video: "https://youtube.com/shorts/YtB1FNpBLEs",
+          videoLabel: "▶ 動画を見る"
+        },
+        {
+          title: "時の流れに身をまかせ",
+          artist: "テレサ・テン",
+          presenter: "弁財天様",
+          comment: "1986年、日本レコード大賞・金賞",
+          jacket: "assets/j02-toki.jpg",
+          article: "https://waka003.seesaa.net/article/521949426.html",
+          room: null,
+          video: "https://youtube.com/shorts/eMO1v7d_6RU",
+          videoLabel: "▶ 動画を見る"
+        },
+        {
+          title: "なごり雪",
+          artist: "イルカ",
+          presenter: "福禄寿様",
+          comment: "1975年発売、累計80万枚を超える冬の名曲",
+          jacket: "assets/j03-nagori.jpg",
+          article: "https://waka003.seesaa.net/article/521959729.html",
+          room: null,
+          video: "https://youtube.com/shorts/uPX4Zoa7Z6w",
+          videoLabel: "▶ 動画を見る"
+        },
+        {
+          title: "時代",
+          artist: "中島みゆき",
+          presenter: "恵比寿様",
+          comment: "1975年、世界歌謡祭でグランプリを受賞",
+          jacket: "assets/j04-jidai.jpg",
+          article: "https://waka003.seesaa.net/article/521947378.html",
+          room: null,
+          video: "https://youtube.com/shorts/sumkbScxGMA",
+          videoLabel: "▶ 動画を見る"
+        },
+        {
+          title: "木綿のハンカチーフ",
+          artist: "太田裕美",
+          presenter: "看板猫にゃん太",
+          comment: "1975年発売、松本隆・筒美京平の名コンビ作",
+          jacket: "assets/j05-momen.jpg",
+          article: "https://waka003.seesaa.net/article/521968491.html",
+          room: null,
+          video: "https://youtube.com/shorts/Ilu0laTq5WI",
+          videoLabel: "▶ 動画を見る"
+        },
+        {
+          title: "川の流れのように",
+          artist: "美空ひばり",
+          presenter: "リン",
+          comment: "美空ひばり生涯最後のシングル",
+          jacket: "assets/j06-kawa.jpg",
+          article: "https://waka003.seesaa.net/article/521968495.html",
+          room: null,
+          video: "https://youtube.com/shorts/_S6x06VPRrU",
+          videoLabel: "▶ 動画を見る"
+        },
+        {
+          title: "舟唄",
+          artist: "八代亜紀",
+          presenter: "寿老人様",
+          comment: "1979年、日本レコード大賞・金賞。紅白の大トリを飾った曲",
+          jacket: "assets/j07-funa.jpg",
+          article: "https://waka003.seesaa.net/article/521968500.html",
+          room: null,
+          video: "https://youtube.com/shorts/Twzv5PCuAjE",
+          videoLabel: "▶ 動画を見る"
+        },
+        {
+          title: "大空と大地の中で",
+          artist: "松山千春",
+          presenter: "福禄寿様",
+          comment: "北海道のテーマソングとも呼ばれる、1977年の曲",
+          jacket: "assets/j08-oozora.jpg",
+          article: "https://waka003.seesaa.net/article/521954380.html",
+          room: null,
+          video: "https://youtube.com/shorts/ySQiIJsD95c",
+          videoLabel: "▶ 動画を見る"
+        },
+        {
+          title: "北の国から〜遥かなる大地より〜",
+          artist: "さだまさし",
+          presenter: "寿老人様",
+          comment: "ドラマ『北の国から』の主題歌。富良野で生まれた曲",
+          jacket: "assets/j09-kita.jpg",
+          article: "https://waka003.seesaa.net/article/521969207.html",
+          room: "https://room.rakuten.co.jp/room_65512f9da7/1700400120217873",
+          video: "https://youtu.be/RcMkg9gEl-4",
+          videoLabel: "▶ ラジオで聴く"
+        },
+        {
+          title: "昔の名前で出ています",
+          artist: "小林旭",
+          presenter: "毘沙門天様",
+          comment: "小林旭の代表曲のひとつ",
+          jacket: "assets/j10-mukashi.jpg",
+          article: "https://waka003.seesaa.net/article/521973336.html",
+          room: "https://room.rakuten.co.jp/room_65512f9da7/1700400308185134",
+          video: "https://youtube.com/shorts/lt6TrQVXPs4",
+          videoLabel: "▶ 動画を見る"
+        },
+        {
+          title: "また逢う日まで",
+          artist: "尾崎紀世彦",
+          presenter: "恵比寿様",
+          comment: "圧倒的な歌唱力で知られる名曲",
+          jacket: "assets/j11-mata.jpg",
+          article: "https://waka003.seesaa.net/article/521973344.html",
+          room: "https://room.rakuten.co.jp/room_65512f9da7/1700400308224332",
+          video: "https://youtube.com/shorts/TAIW1C9-pr8",
+          videoLabel: "▶ 動画を見る"
+        },
+        {
+          title: "人生いろいろ",
+          artist: "島倉千代子",
+          presenter: "弁財天様",
+          comment: "人生の機微を歌う、島倉千代子の代表曲",
+          jacket: "assets/j12-jinsei.jpg",
+          article: "https://waka003.seesaa.net/article/521973354.html",
+          room: "https://room.rakuten.co.jp/room_65512f9da7/1700400308254299",
+          video: "https://youtube.com/shorts/Pw0ioDPNtd8",
+          videoLabel: "▶ 動画を見る"
+        },
+        {
+          title: "北酒場",
+          artist: "細川たかし",
+          presenter: "寿老人様",
+          comment: "真狩村・羊蹄山にゆかりの、北海道の歌",
+          jacket: "assets/j13-kitasakaba.jpg",
+          article: "https://waka003.seesaa.net/article/521985222.html",
+          room: "https://room.rakuten.co.jp/room_65512f9da7/1700400089178245",
+          video: "https://youtu.be/8IpiWX2UNH8",
+          videoLabel: "▶ ラジオで聴く"
+        },
+        {
+          title: "勝手にしやがれ",
+          artist: "沢田研二",
+          presenter: "弁財天様",
+          comment: "1977年、第19回日本レコード大賞・大賞に輝いた名曲",
+          jacket: "assets/j14-katte.jpg",
+          article: "https://waka003.seesaa.net/article/521983226.html",
+          room: "https://room.rakuten.co.jp/room_65512f9da7/1700400088403116",
+          video: "https://youtube.com/shorts/9TyuzZMBTqU",
+          videoLabel: "▶ 動画を見る"
+        },
+        {
+          title: "天城越え",
+          artist: "石川さゆり",
+          presenter: "毘沙門天様",
+          comment: "1986年、第28回日本レコード大賞で金賞に輝いた代表曲",
+          jacket: "assets/j15-amagi.jpg",
+          article: "https://waka003.seesaa.net/article/521983343.html",
+          room: "https://room.rakuten.co.jp/room_65512f9da7/1700400087524196",
+          video: "https://youtube.com/shorts/pLQqJpK5Rvw",
+          videoLabel: "▶ 動画を見る"
+        },
+        {
+          title: "北の旅人",
+          artist: "石原裕次郎",
+          presenter: "大黒天様",
+          comment: "1987年の追悼盤。函館と小樽が出てくる、北の旅の歌です",
+          jacket: "assets/j16-kitanotabibito.jpg",
+          article: "https://waka003.seesaa.net/article/521983960.html",
+          room: "https://room.rakuten.co.jp/room_65512f9da7/1700400088131200",
+          video: "https://youtube.com/shorts/h0mr5ROf2E0",
+          videoLabel: "▶ 動画を見る"
+        },
+        {
+          title: "函館の女",
+          artist: "北島三郎",
+          presenter: "布袋様",
+          comment: "1965年発売。函館を歌った、北島三郎の代表曲です",
+          jacket: "assets/j17-hakodate.jpg",
+          article: "https://waka003.seesaa.net/article/521986812.html",
+          room: "https://room.rakuten.co.jp/room_65512f9da7/1700400608751276",
+          video: "https://youtu.be/c7ujlGGT5PU",
+          videoLabel: "▶ ラジオで聴く"
+        }
+      ];
+
+      var drawBtn = document.getElementById("drawBtn");
+      var againBtn = document.getElementById("againBtn");
+      var disc = document.getElementById("disc");
+      var jacketImg = document.getElementById("jacketImg");
+      var jacketPlaceholder = document.getElementById("jacketPlaceholder");
+      var nowTitle = document.getElementById("nowTitle");
+      var statusEl = document.getElementById("status");
+      var result = document.getElementById("result");
+      var sparkles = document.querySelectorAll(".sparkle");
+      var spinning = false;
+
+      // ジャケット画像の先読み（回転中の切り替えをなめらかにするためのもの）
+      // ページを開いた直後には読み込まず、ボタンへの最初のタップ／ホバー、
+      // またはマシン本体が画面に見えた時点で開始する（軽量化のため）
+      var preloadStarted = false;
+      function preloadJackets() {
+        if (preloadStarted) return;
+        preloadStarted = true;
+        SONGS.forEach(function (s) { var im = new Image(); im.src = s.jacket; });
+      }
+      drawBtn.addEventListener("pointerenter", preloadJackets);
+      drawBtn.addEventListener("pointerdown", preloadJackets);
+      drawBtn.addEventListener("focus", preloadJackets);
+      var machineCard = document.querySelector(".card");
+      if (machineCard && "IntersectionObserver" in window) {
+        var cardObserver = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              preloadJackets();
+              cardObserver.disconnect();
+            }
+          });
+        }, { rootMargin: "200px" });
+        cardObserver.observe(machineCard);
+      }
+
+      function showSong(song) {
+        jacketPlaceholder.style.display = "none";
+        jacketImg.style.display = "block";
+        jacketImg.src = song.jacket;
+        jacketImg.alt = "「" + song.title + "」" + song.artist + "のCDジャケット";
+        nowTitle.innerHTML = "";
+        nowTitle.appendChild(document.createTextNode("♪ " + song.title));
+        var artistSpan = document.createElement("span");
+        artistSpan.className = "artist";
+        artistSpan.textContent = song.artist;
+        nowTitle.appendChild(artistSpan);
+      }
+
+      function fillResult(song) {
+        document.getElementById("rTitle").textContent = song.title;
+        document.getElementById("rArtist").textContent = song.artist;
+        document.getElementById("rPresenter").textContent = "紹介：" + song.presenter;
+        document.getElementById("rComment").textContent = song.comment;
+        var links = document.getElementById("rLinks");
+        links.innerHTML = "";
+        function addLink(href, label, cls) {
+          var a = document.createElement("a");
+          a.href = href;
+          a.target = "_blank";
+          a.rel = "noopener";
+          a.className = cls;
+          a.textContent = label;
+          links.appendChild(a);
+        }
+        if (song.article) addLink(song.article, "📖 この曲の記事を読む", "link-article");
+        if (song.room) addLink(song.room, "💿 CDを楽天ROOMで見る", "link-room");
+        if (song.video) addLink(song.video, song.videoLabel || "▶ 動画を見る", "link-video");
+      }
+
+      function draw() {
+        if (spinning) return;
+        preloadJackets();
+        spinning = true;
+        drawBtn.disabled = true;
+        result.classList.remove("show");
+        disc.classList.remove("idle");
+        disc.classList.add("spinning");
+        statusEl.textContent = "くるくる選んでいます…🎶";
+
+        var finalIndex = Math.floor(Math.random() * SONGS.length);
+        var finalSong = SONGS[finalIndex];
+
+        // 切り替え間隔のスケジュール：速く始まり→さらに速く→最後はゆっくり減速（合計 約2.1秒）
+        var delays = [];
+        var total = 0;
+        var d = 95;
+        while (total < 1250) { delays.push(d); total += d; if (d > 42) d -= 9; }
+        d = 60;
+        while (total < 2050) { delays.push(d); total += d; d = Math.round(d * 1.45); }
+        delays.push(320);
+
+        var step = 0;
+        var cursor = Math.floor(Math.random() * SONGS.length);
+        function tick() {
+          if (step < delays.length) {
+            cursor = (cursor + 1 + Math.floor(Math.random() * 3)) % SONGS.length;
+            showSong(SONGS[cursor]);
+            setTimeout(tick, delays[step]);
+            step++;
+          } else {
+            showSong(finalSong);
+            finish(finalSong);
+          }
+        }
+        tick();
+      }
+
+      function finish(song) {
+        spinning = false;
+        drawBtn.disabled = false;
+        disc.classList.remove("spinning");
+        disc.classList.add("idle");
+        statusEl.textContent = "今日の1曲が決まりました！";
+        fillResult(song);
+        result.classList.add("show");
+        sparkles.forEach(function (sp, i) {
+          sp.classList.remove("pop");
+          setTimeout(function () { sp.classList.add("pop"); }, i * 70);
+        });
+        setTimeout(function () {
+          result.scrollIntoView({ behavior: "smooth", block: "nearest" });
+        }, 120);
+      }
+
+      drawBtn.addEventListener("click", draw);
+      againBtn.addEventListener("click", function () {
+        draw();
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      });
+    </script>
+  </body>
+</html>
