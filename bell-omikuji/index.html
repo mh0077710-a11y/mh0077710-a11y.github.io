@@ -1,0 +1,893 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="description" content="毎日、あなたの運勢を占います。巫女コスズと七福神の「おみくじ日和」—神社の鈴を引いて今日のおみくじ。ショート動画でも毎日の運勢をお届けしています。" />
+    <!-- このページの公開アドレス（元アプリと同じ共有アドレス） -->
+    <link rel="canonical" href="https://is.gd/omikuji_today" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="今日のおみくじ｜おみくじ日和" />
+    <meta property="og:description" content="毎日、あなたの運勢を占います。巫女コスズと七福神の「おみくじ日和」—神社の鈴を引いて今日のおみくじ。" />
+    <meta property="og:url" content="https://is.gd/omikuji_today" />
+    <link rel="icon" href="data:," />
+    <title>今日のおみくじ｜おみくじ日和</title>
+    <!-- フォント・画像・スクリプトの外部読み込みは一切なし。端末のフォントだけで表示する軽量版 -->
+    <style>
+:root{
+  --night1:#17102e;--night2:#241547;--night3:#2e1a52;
+  --paper:#fffaf3;--card:#fffdf9;--ink:#3a2a24;--ink-soft:#7a655b;
+  --vermilion:#d9482f;--vermilion-deep:#b8351f;--vermilion-soft:#fbe9e2;
+  --gold:#c9922e;--gold-soft:#f7ecd2;--teal:#2e7d74;--line:#ead9c8;
+  --shadow:0 10px 30px rgba(10,4,30,.45);--radius:20px;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  background:linear-gradient(180deg,var(--night1) 0%,var(--night2) 55%,var(--night3) 100%);
+  color:var(--ink);min-height:100vh;margin:0;
+  font-family:"Hiragino Maru Gothic ProN","Hiragino Sans","Yu Gothic",YuGothic,"Noto Sans CJK JP",sans-serif;
+  font-weight:500;line-height:1.7;overflow-x:hidden;
+}
+.wrap{max-width:640px;width:100%;margin:0 auto;padding:20px 16px 48px}
+.top-catch{letter-spacing:.1em;color:#ffd98a;text-align:center;display:flex;justify-content:center;align-items:center;gap:14px;margin:6px 0 18px;font-family:"Hiragino Mincho ProN","Hiragino Mincho Pro","Yu Mincho",YuMincho,"Noto Serif CJK JP","MS PMincho",serif;font-size:clamp(1.35rem,6vw,1.9rem);font-weight:800}
+.top-catch:before,.top-catch:after{content:"";background:var(--gold);opacity:.85;border-radius:2px;flex:none;width:30px;height:2px}
+.hero{overflow:hidden;box-shadow:var(--shadow);border:1px solid #57448a;background:linear-gradient(180deg,#fff6ec,var(--paper));border-radius:24px}
+.hero-art{display:flex;justify-content:center;padding:20px 16px 2px}
+.hero-caption{text-align:center;padding:8px 20px 22px}
+.date-line{letter-spacing:.14em;color:var(--vermilion);margin:0 0 4px;font-size:.85rem;font-weight:700}
+h1{letter-spacing:.06em;white-space:nowrap;margin:0;font-family:"Hiragino Mincho ProN","Hiragino Mincho Pro","Yu Mincho",YuMincho,"Noto Serif CJK JP","MS PMincho",serif;font-size:clamp(1.9rem,7vw,2.6rem);font-weight:800;background:linear-gradient(90deg,#b8351f,#e07840 55%,#c9922e);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:var(--vermilion-deep)}
+.nobr{white-space:nowrap}
+.sub{color:var(--ink-soft);margin:6px 0 0;font-size:.95rem}
+.sub strong{color:var(--ink)}
+.catchcopy{letter-spacing:.08em;color:var(--vermilion-deep);display:flex;justify-content:center;align-items:center;gap:12px;margin:12px 0 0;font-family:"Hiragino Mincho ProN","Hiragino Mincho Pro","Yu Mincho",YuMincho,"Noto Serif CJK JP","MS PMincho",serif;font-size:clamp(1.02rem,4.6vw,1.55rem);font-weight:800}
+.catchcopy:before,.catchcopy:after{content:"";background:var(--gold);opacity:.85;border-radius:2px;flex:none;width:26px;height:2px}
+.stage{text-align:center;position:relative;margin-top:26px}
+.box-stage{display:flex;position:relative;justify-content:center;align-items:flex-end;height:170px}
+.omikuji-box{display:block;width:120px;height:auto}
+.stick{position:absolute;opacity:0;background:linear-gradient(#e8b04b,#d99a26);border-radius:5px 5px 2px 2px;width:10px;height:74px;margin-left:-5px;bottom:118px;left:50%;transform:translateY(52px);box-shadow:0 2px 6px rgba(0,0,0,.2)}
+.stick:after{content:"";position:absolute;background:var(--vermilion-deep);border-radius:50%;width:4px;height:4px;margin-left:-2px;top:6px;left:50%}
+.is-drawing .omikuji-box{animation:.9s ease-in-out shake;transform-origin:50% 90%}
+.is-drawing .stick{animation:.9s forwards stickOut}
+@keyframes shake{0%,to{transform:rotate(0)}15%{transform:rotate(-9deg)}30%{transform:rotate(8deg)}45%{transform:rotate(-7deg)}60%{transform:rotate(6deg)}75%{transform:rotate(-3deg)}}
+@keyframes stickOut{0%{transform:translateY(52px);opacity:0}35%{opacity:1}to{transform:translateY(0);opacity:1}}
+.to-draw-btn{display:inline-flex;text-decoration:none;background:var(--vermilion);color:#fff;letter-spacing:.06em;border-radius:999px;align-items:center;gap:10px;margin-top:18px;padding:14px 22px;font-size:1.05rem;font-weight:900;box-shadow:0 10px 22px rgba(185,53,31,.28)}
+.to-draw-btn:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+.draw-page{background:var(--card);border:1px solid var(--line);box-shadow:var(--shadow);text-align:center;--pull:0px;border-radius:24px;margin-top:26px;padding:22px 18px 24px}
+.draw-page h2{letter-spacing:.08em;color:var(--ink);margin:0;font-family:"Hiragino Mincho ProN","Hiragino Mincho Pro","Yu Mincho",YuMincho,"Noto Serif CJK JP","MS PMincho",serif;font-size:clamp(1.5rem,6vw,1.9rem);font-weight:800}
+.draw-lead{color:var(--ink-soft);margin:8px 0 0;font-size:.95rem;line-height:1.8}
+.draw-lead strong{color:var(--vermilion-deep)}
+.bell-stage{position:relative;cursor:pointer;width:min(320px,88vw);height:392px;margin:6px auto 0}
+.bell-beam{position:absolute;background:linear-gradient(#8a5a2b,#6e451e);border-radius:7px;width:250px;max-width:86vw;height:22px;top:2px;left:50%;transform:translate(-50%);box-shadow:0 4px 10px rgba(92,58,23,.35),inset 0 2px rgba(255,255,255,.25)}
+.bell-beam:before,.bell-beam:after{content:"";position:absolute;background:var(--gold);border-radius:50%;width:12px;height:12px;top:5px;box-shadow:inset 0 1px 2px rgba(255,255,255,.6)}
+.bell-beam:before{left:16px}.bell-beam:after{right:16px}
+.bell-unit{position:absolute;transform-origin:50% 0;z-index:3;width:118px;margin-left:-59px;top:24px;left:50%;transform:translateY(calc(var(--pull)*.3)) rotate(calc(var(--pull)*.07deg));transition:transform .18s}
+.is-dragging-rope .bell-unit{transition:none}
+.bell-unit svg{display:block;width:100%;height:auto}
+.is-ringing .bell-unit{animation:.95s cubic-bezier(.28,.84,.42,1) bellJump}
+@keyframes bellJump{0%{transform:translateY(0) rotate(0)}18%{transform:translateY(-26px) rotate(-9deg)}34%{transform:translateY(4px) rotate(10deg)}50%{transform:translateY(-16px) rotate(-7deg)}66%{transform:translateY(2px) rotate(5deg)}82%{transform:translateY(-6px) rotate(-2deg)}to{transform:translateY(0) rotate(0)}}
+.bell-ring-note{position:absolute;color:var(--gold);opacity:0;pointer-events:none;z-index:4;font-size:1.5rem;font-weight:900;top:16px;left:50%;transform:translate(-50%)}
+.is-ringing .bell-ring-note{animation:.95s ease-out ringNote}
+@keyframes ringNote{0%{opacity:0;transform:translate(-50%,8px) scale(.7)}30%{opacity:1}to{opacity:0;transform:translate(-50%,-26px) scale(1.25)}}
+.rope{position:absolute;height:calc(92px + var(--pull));background:repeating-linear-gradient(180deg,#f4ead2 0 12px,var(--vermilion) 12px 24px);z-index:1;border-radius:0 0 8px 8px;width:20px;margin-left:-10px;transition:height .18s;top:102px;left:50%;box-shadow:inset -4px 0 6px rgba(90,30,10,.28),inset 4px 0 6px rgba(255,255,255,.35),0 2px 5px rgba(90,30,10,.18);transform-origin:50% 0}
+.is-dragging-rope .rope{transition:none}
+.is-ringing .rope{animation:.95s ropeWiggle}
+@keyframes ropeWiggle{0%,to{transform:rotate(0)}20%{transform:rotate(3.5deg)}45%{transform:rotate(-3deg)}70%{transform:rotate(1.8deg)}}
+.rope-grip{appearance:none;cursor:grab;position:absolute;left:50%;top:calc(186px + var(--pull));-webkit-tap-highlight-color:transparent;z-index:2;touch-action:none;background:0 0;border:0;width:92px;padding:0;transition:top .18s;font-family:inherit;transform:translate(-50%)}
+.rope-grip:active{cursor:grabbing}
+.rope-grip:focus-visible{outline:3px solid var(--gold);outline-offset:4px;border-radius:16px}
+.rope-grip[disabled]{opacity:.8;cursor:wait}
+.is-dragging-rope .rope-grip{transition:none}
+.is-pulling .rope-grip{animation:.6s forwards gripPull}
+@keyframes gripPull{0%{top:186px}to{top:282px}}
+.grip-knot{display:block;background:linear-gradient(180deg,var(--gold),#a5761f);border-radius:8px;width:34px;height:18px;margin:0 auto;box-shadow:inset 0 2px rgba(255,255,255,.5)}
+.grip-body{display:flex;background:linear-gradient(180deg,#e8563c,var(--vermilion) 55%,var(--vermilion-deep));color:#fff;border:3px solid var(--gold);border-radius:16px 16px 20px 20px;flex-direction:column;justify-content:center;align-items:center;gap:1px;width:78px;height:62px;margin:-3px auto 0;box-shadow:0 10px 20px rgba(185,53,31,.35),inset 0 2px rgba(255,255,255,.45)}
+.grip-body .grip-main{letter-spacing:.14em;text-indent:.14em;font-size:1.08rem;font-weight:900;line-height:1.15}
+.grip-body .grip-sub{letter-spacing:.1em;opacity:.95;font-size:.6rem;font-weight:700}
+.grip-tassel{display:block;background:repeating-linear-gradient(90deg,var(--gold) 0 5px,#b98a26 5px 10px);clip-path:polygon(8% 0,92% 0,100% 100%,0 100%);opacity:.95;width:56px;height:16px;margin:2px auto 0}
+.pull-guide{position:absolute;letter-spacing:.22em;color:var(--ink-soft);opacity:.75;animation:1.6s ease-in-out infinite guideBounce;font-size:.78rem;font-weight:900;bottom:8px;left:50%;transform:translate(-50%)}
+@keyframes guideBounce{0%,to{transform:translate(-50%)}50%{transform:translate(-50%,6px)}}
+.bell-hint{color:var(--ink-soft);text-align:center;max-width:22em;margin:2px auto 0;font-size:.84rem;line-height:1.7}
+.bell-box-row{display:flex;justify-content:center;margin-top:2px}
+.bell-box-row .box-stage{height:128px}
+.bell-box-row .omikuji-box{width:88px}
+.bell-box-row .stick{height:58px;bottom:86px}
+.press-status{text-align:center;letter-spacing:.1em;color:var(--ink);margin:14px 0 0;font-family:"Hiragino Mincho ProN","Hiragino Mincho Pro","Yu Mincho",YuMincho,"Noto Serif CJK JP","MS PMincho",serif;font-size:clamp(1.15rem,5vw,1.4rem);font-weight:800}
+.draw-note{text-align:center;color:var(--ink-soft);margin:10px 0 0;font-size:.85rem}
+@media (max-width:430px){.bell-stage{height:388px}}
+.result{display:none;margin-top:30px;scroll-margin-top:14px}
+.result.show{display:block;animation:.7s cubic-bezier(.28,.84,.42,1) both jumpIn}
+@keyframes jumpIn{0%{opacity:0;transform:translateY(34px) scale(.96)}55%{opacity:1;transform:translateY(-10px) scale(1.015)}75%{transform:translateY(3px) scale(1)}to{opacity:1;transform:translateY(0) scale(1)}}
+.slip{background:var(--paper);border:2px solid var(--vermilion);box-shadow:var(--shadow);border-radius:14px;padding:8px}
+.slip-inner{border:1px solid var(--line);text-align:center;background:repeating-linear-gradient(0deg,transparent,transparent 27px,rgba(201,146,46,.06) 28px);border-radius:9px;padding:26px 22px 24px}
+.slip-no{letter-spacing:.3em;color:var(--ink-soft);margin:0;font-size:.85rem}
+/* 結果バナー（GitHubおみくじページと同じ、運勢ごとに色が変わる幅いっぱいの大きな表示） */
+.rank-banner{border-radius:14px;margin:12px 0 4px;padding:16px 10px 12px;box-shadow:0 8px 20px rgba(90,40,0,.18);border:2px solid rgba(255,255,255,.65)}
+.rank-banner[data-fortune="大吉"]{background:linear-gradient(135deg,#ffe98a,#f5b81d 60%,#e8a91c);color:#6b4a00}
+.rank-banner[data-fortune="中吉"]{background:linear-gradient(135deg,#ffd7e4,#f78fb0 60%,#ef6f9c);color:#7c1d3f}
+.rank-banner[data-fortune="小吉"]{background:linear-gradient(135deg,#ffe3b3,#ffab4a 60%,#ff9d4d);color:#7a3c00}
+.rank-banner[data-fortune="凶"]{background:linear-gradient(135deg,#d6dbe2,#a7b0ba 60%,#9aa3ad);color:#3d454e}
+.rank-deco{margin:0;font-size:1.3rem;line-height:1}
+.rank{margin:2px 0;font-family:"Hiragino Mincho ProN","Hiragino Mincho Pro","Yu Mincho",YuMincho,"Noto Serif CJK JP","MS PMincho",serif;font-size:clamp(44px,13vw,64px);font-weight:800;line-height:1.15}
+.rank-en{letter-spacing:.34em;margin:0;font-size:.8rem;font-weight:700;opacity:.85}
+.stars{letter-spacing:.3em;color:var(--gold);margin:10px 0 12px;font-size:1.05rem}
+.stars .off{color:var(--line)}
+.overall{max-width:30em;margin:0 auto;font-size:1.02rem;font-weight:700}
+.divider{background:var(--gold);opacity:.7;border-radius:2px;width:54px;height:2px;margin:18px auto 4px}
+.detail-grid{display:grid;grid-template-columns:1fr 1fr;text-align:left;gap:12px;margin-top:16px}
+.detail{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:14px 16px}
+.detail h3{letter-spacing:.12em;color:var(--vermilion);display:flex;align-items:center;gap:7px;margin:0 0 4px;font-size:.82rem;font-weight:900}
+.detail h3 svg{flex:none}
+.detail p{margin:0;font-size:.95rem}
+.detail .mini-stars{color:var(--gold);letter-spacing:.18em;font-size:.85rem}
+.detail .mini-stars .off{color:var(--line)}
+.lucky-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}
+.lucky{border-radius:var(--radius);text-align:center;border:1px solid var(--line);padding:16px}
+.lucky.item{background:var(--gold-soft)}
+.lucky.dir{background:var(--vermilion-soft)}
+.lucky .label{letter-spacing:.14em;margin:0 0 6px;font-size:.78rem;font-weight:900}
+.lucky.item .label{color:#8a5f14}
+.lucky.dir .label{color:var(--vermilion-deep)}
+.lucky .value{margin:0;font-family:"Hiragino Mincho ProN","Hiragino Mincho Pro","Yu Mincho",YuMincho,"Noto Serif CJK JP","MS PMincho",serif;font-size:1.3rem;font-weight:800;line-height:1.35}
+.lucky .desc{color:var(--ink-soft);margin:6px 0 0;font-size:.85rem}
+.compass{display:block;margin:2px auto 8px}
+.kosuzu{display:flex;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);text-align:left;align-items:flex-start;gap:12px;margin-top:16px;padding:16px 18px}
+.kosuzu .face{background:var(--vermilion-soft);display:flex;border-radius:50%;flex:none;justify-content:center;align-items:center;width:46px;height:46px}
+.kosuzu p{margin:0;font-size:.95rem}
+.kosuzu .who{letter-spacing:.1em;color:var(--vermilion);margin-bottom:2px;font-size:.8rem;font-weight:900}
+.again-btn{appearance:none;cursor:pointer;border:2px solid var(--vermilion);color:var(--vermilion-deep);letter-spacing:.08em;background:0 0;border-radius:999px;margin-top:20px;padding:12px 28px;transition:background .15s,color .15s;font-family:inherit;font-size:1rem;font-weight:900}
+.again-btn:hover{background:var(--vermilion);color:#fff}
+.again-btn:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+.shorts{margin-top:34px}
+.shorts-card{display:flex;background:var(--card);border:1px solid var(--line);box-shadow:var(--shadow);border-radius:24px;align-items:center;gap:22px;padding:22px}
+.shorts-frame{aspect-ratio:9/16;overflow:hidden;position:relative;border:1px solid var(--line);background:linear-gradient(180deg,#ffe9d6,#fbd9a0);border-radius:16px;flex:none;width:168px;display:flex;flex-direction:column;justify-content:flex-end}
+.shorts-frame .frame-toright{position:absolute;top:14px;left:0;right:0;display:flex;justify-content:center}
+.shorts-overlay{position:relative;color:#fff;text-align:center;background:linear-gradient(rgba(43,24,16,0),rgba(43,24,16,.85));padding:34px 10px 12px}
+.shorts-overlay .ov-catch{text-shadow:0 1px 6px rgba(0,0,0,.45);margin:0;font-family:"Hiragino Mincho ProN","Hiragino Mincho Pro","Yu Mincho",YuMincho,"Noto Serif CJK JP","MS PMincho",serif;font-size:1rem;font-weight:800;line-height:1.55}
+.shorts-overlay .ov-sub{letter-spacing:.16em;opacity:.92;margin:5px 0 0;font-size:.68rem;font-weight:700;line-height:1.65}
+.shorts-body{flex:1;min-width:0}
+.shorts-body h2{letter-spacing:.04em;margin:0 0 8px;font-family:"Hiragino Mincho ProN","Hiragino Mincho Pro","Yu Mincho",YuMincho,"Noto Serif CJK JP","MS PMincho",serif;font-size:clamp(1.25rem,5vw,1.5rem);font-weight:800}
+.shorts-body p{color:var(--ink-soft);margin:0 0 12px;font-size:.95rem}
+.shorts-body p strong{color:var(--ink)}
+.shorts-points{list-style:none;display:flex;flex-wrap:wrap;gap:8px;margin:0 0 16px;padding:0}
+.shorts-points li{background:var(--vermilion-soft);color:var(--vermilion-deep);border-radius:999px;padding:5px 12px;font-size:.82rem;font-weight:700}
+.shorts-btn{display:inline-flex;text-decoration:none;background:linear-gradient(180deg,#e8563c,var(--vermilion) 55%,var(--vermilion-deep));color:#fff;letter-spacing:.06em;border-radius:999px;align-items:center;gap:9px;padding:13px 24px;transition:transform .15s,box-shadow .15s;font-size:1rem;font-weight:900;box-shadow:0 8px 20px rgba(185,53,31,.32),inset 0 2px rgba(255,255,255,.35)}
+.shorts-btn:hover{transform:translateY(-2px)}
+.shorts-btn:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+.shorts-note{margin:10px 0 0!important;font-size:.85rem!important}
+@media (max-width:560px){.shorts-card{text-align:center;flex-direction:column;padding:22px 18px}.shorts-points{justify-content:center}}
+.goods{margin-top:34px}
+.goods-card{background:var(--card);border:1px solid var(--line);box-shadow:var(--shadow);text-align:center;border-radius:24px;padding:22px}
+.goods-card h2{letter-spacing:.04em;margin:0 0 6px;font-family:"Hiragino Mincho ProN","Hiragino Mincho Pro","Yu Mincho",YuMincho,"Noto Serif CJK JP","MS PMincho",serif;font-size:clamp(1.25rem,5vw,1.5rem);font-weight:800}
+.goods-card p{color:var(--ink-soft);margin:0 0 16px;font-size:.95rem}
+.goods-card p strong{color:var(--ink)}
+.goods-btn{display:inline-flex;text-decoration:none;background:linear-gradient(180deg,#e8563c,var(--vermilion) 55%,var(--vermilion-deep));color:#fff;letter-spacing:.05em;border:3px solid var(--gold);border-radius:999px;justify-content:center;align-items:center;gap:9px;padding:15px 26px;transition:transform .15s,box-shadow .15s;font-size:1.05rem;font-weight:900;box-shadow:0 10px 22px rgba(185,53,31,.32),inset 0 2px rgba(255,255,255,.35)}
+.goods-btn:hover{transform:translateY(-2px)}
+.goods-btn:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+.goods-note{line-height:1.6;margin:12px 0 0!important;font-size:.82rem!important}
+.result-goods{text-align:center;margin-top:14px}
+.result-goods a{display:inline-flex;text-decoration:none;background:var(--gold-soft);color:var(--ink);border:2px solid var(--gold);letter-spacing:.05em;border-radius:999px;align-items:center;gap:8px;padding:12px 22px;font-size:.98rem;font-weight:900}
+.result-goods a:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+.share{margin-top:34px}
+.share-card{background:var(--card);border:1px solid var(--line);box-shadow:var(--shadow);text-align:center;border-radius:24px;padding:22px}
+.share-card h2{letter-spacing:.04em;margin:0 0 6px;font-family:"Hiragino Mincho ProN","Hiragino Mincho Pro","Yu Mincho",YuMincho,"Noto Serif CJK JP","MS PMincho",serif;font-size:clamp(1.25rem,5vw,1.5rem);font-weight:800}
+.share-card p{color:var(--ink-soft);margin:0 0 16px;font-size:.95rem}
+.share-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.share-btn{display:inline-flex;appearance:none;cursor:pointer;letter-spacing:.04em;text-decoration:none;color:#fff;border:0;border-radius:14px;justify-content:center;align-items:center;gap:8px;padding:14px 10px;transition:transform .15s,box-shadow .15s;font-family:inherit;font-size:1rem;font-weight:900}
+.share-btn:hover{transform:translateY(-2px)}
+.share-btn:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+.share-btn.line{background:#06c755;box-shadow:0 8px 18px rgba(6,199,85,.3)}
+.share-btn.x{background:#111;box-shadow:0 8px 18px rgba(0,0,0,.28)}
+.share-btn.fb{background:#1877f2;box-shadow:0 8px 18px rgba(24,119,242,.3)}
+.share-btn.copy{background:var(--paper);color:var(--vermilion-deep);border:2px solid var(--vermilion);box-shadow:none}
+.share-btn.copy.copied{background:var(--vermilion);color:#fff}
+.native-share-wrap{margin:0 0 14px}
+.native-share-note{line-height:1.6;margin:8px 0 0!important;font-size:.85rem!important}
+.share-btn.native-share{letter-spacing:.06em;background:linear-gradient(180deg,#e8563c,var(--vermilion) 55%,var(--vermilion-deep));border:3px solid var(--gold);border-radius:18px;width:100%;padding:20px 16px;font-size:1.3rem;box-shadow:0 12px 26px rgba(185,53,31,.38),inset 0 2px rgba(255,255,255,.4)}
+.share-btn.native-share.copied{background:var(--teal);border-color:var(--teal)}
+.share-url{border-top:1px dashed var(--line);margin-top:18px;padding-top:16px}
+.share-url .su-label{letter-spacing:.08em;color:var(--ink);margin:0 0 8px;font-size:.9rem;font-weight:900}
+.share-url input{color:var(--ink);background:var(--paper);border:2px solid var(--gold);text-align:center;-webkit-user-select:all;user-select:all;border-radius:12px;width:100%;padding:12px 10px;font-family:inherit;font-size:.78rem;line-height:1.5}
+.share-url input:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.share-url .su-note{line-height:1.6;margin:8px 0 0!important;font-size:.82rem!important}
+@media (max-width:430px){.share-grid{grid-template-columns:1fr}}
+footer{text-align:center;color:#cbb8e8;margin-top:34px;font-size:.82rem}
+footer p{margin:4px 0}
+.petal{position:fixed;pointer-events:none;z-index:30;animation:linear forwards fall;top:-24px}
+@keyframes fall{to{transform:translateY(105vh) rotate(340deg);opacity:.15}}
+@media (prefers-reduced-motion:reduce){.is-drawing .omikuji-box,.is-drawing .stick,.result.show,.petal,.is-pulling .rope-grip,.is-ringing .bell-unit,.is-ringing .rope,.is-ringing .bell-ring-note,.pull-guide{animation:none!important}.stick{opacity:1;transform:none}}
+@media (max-width:430px){.detail-grid,.lucky-row{grid-template-columns:1fr}.top-catch{gap:10px}.top-catch:before,.top-catch:after{width:18px}.catchcopy{gap:8px}.catchcopy:before,.catchcopy:after{width:16px}}
+    </style>
+  </head>
+  <body>
+    <main class="wrap">
+      <p class="top-catch"><span class="nobr">今日の運勢を占います</span></p>
+      <section class="hero">
+        <div class="hero-art" aria-hidden="true">
+          <svg width="150" height="96" viewBox="0 0 150 96" role="img" aria-label="鳥居と鈴">
+            <path d="M8 14 Q75 2 142 14 L138 24 Q75 14 12 24 Z" fill="#d9482f"/>
+            <rect x="20" y="28" width="110" height="7" rx="2" fill="#b8351f"/>
+            <rect x="32" y="35" width="8" height="52" fill="#d9482f"/>
+            <rect x="110" y="35" width="8" height="52" fill="#d9482f"/>
+            <rect x="71" y="28" width="8" height="18" fill="#b8351f"/>
+            <path d="M75 46 Q64 58 66 68 Q67 76 75 76 Q83 76 84 68 Q86 58 75 46 Z" fill="#e3b84f" stroke="#b98a26" stroke-width="1.5"/>
+            <circle cx="75" cy="72" r="3" fill="#7c4c20"/>
+          </svg>
+        </div>
+        <div class="hero-caption">
+          <p class="date-line" id="dateLine">今日の運勢</p>
+          <h1>今日のおみくじ</h1>
+          <p class="catchcopy"><span class="nobr">毎日、あなたの運勢を占います</span></p>
+          <p class="sub">巫女コスズと七福神の<span class="nobr"><strong>「おみくじ日和」</strong>へようこそ</span>。<br />心を静めて、次のページで神社の鈴を引いて今日の運勢をどうぞ。</p>
+          <a class="to-draw-btn" href="#drawPage">おみくじを引くページへ <span class="arr" aria-hidden="true">↓</span></a>
+        </div>
+      </section>
+
+      <section class="stage draw-page" id="stage" aria-label="鈴を引いておみくじを引く"><span id="drawPage" aria-hidden="true"></span>
+        <h2>鈴を引いておみくじ</h2>
+        <p class="draw-lead">神社の <strong>鈴の綱を下へ引っぱる</strong> と、鈴がジャンプして鳴り、<br />そのまま <strong>答え（結果）へジャンプ</strong> します。</p>
+
+        <div class="bell-stage" id="bellStage">
+          <div class="bell-beam" aria-hidden="true"></div>
+          <div class="bell-unit" aria-hidden="true">
+            <svg viewBox="0 0 120 92" role="img" aria-label="神社の鈴">
+              <path d="M60 2 L60 12" stroke="#8a5a2b" stroke-width="6" stroke-linecap="round"/>
+              <path d="M22 62 Q22 22 60 14 Q98 22 98 62 Q98 74 86 76 L34 76 Q22 74 22 62 Z" fill="#e3b84f"/>
+              <path d="M22 62 Q22 22 60 14 Q66 14 72 16 Q50 24 46 74 L34 76 Q22 74 22 62 Z" fill="#f0cd72"/>
+              <path d="M30 60 Q60 68 90 60 L90 66 Q60 74 30 66 Z" fill="#b98a26"/>
+              <rect x="52" y="58" width="16" height="14" rx="7" fill="#7c4c20"/>
+              <ellipse cx="60" cy="80" rx="14" ry="5" fill="#c9922e"/>
+            </svg>
+          </div>
+          <span class="bell-ring-note" aria-hidden="true">♪</span>
+          <div class="rope" aria-hidden="true"></div>
+          <button class="rope-grip" id="drawBtn" type="button" aria-label="鈴の綱を下に引っぱっておみくじを引く">
+            <span class="grip-knot" aria-hidden="true"></span>
+            <span class="grip-body">
+              <span class="grip-main">引く</span>
+              <span class="grip-sub">▼ 綱を下へ</span>
+            </span>
+            <span class="grip-tassel" aria-hidden="true"></span>
+          </button>
+          <p class="pull-guide" aria-hidden="true">↓ 引っぱる ↓</p>
+        </div>
+        <p class="bell-hint">綱の下の「引く」を指でつかんで、下へ引っぱってください。<br />しっかり引いて離すと、鈴が鳴って結果が出ます。</p>
+
+        <div class="bell-box-row">
+          <div class="box-stage" aria-hidden="true">
+            <div class="stick" id="stick"></div>
+            <svg class="omikuji-box" viewBox="0 0 120 130" role="img" aria-label="おみくじの筒">
+              <ellipse cx="60" cy="14" rx="34" ry="9" fill="#8a5a2b"/>
+              <ellipse cx="60" cy="13" rx="26" ry="6" fill="#5d3a17"/>
+              <path d="M26 14 L34 112 Q35 122 46 122 L74 122 Q85 122 86 112 L94 14 Z" fill="#a06a33"/>
+              <path d="M26 14 L34 112 Q35 122 46 122 L52 122 L44 14 Z" fill="#b57a3e"/>
+              <path d="M94 14 L86 112 Q85 122 74 122 L68 122 L76 14 Z" fill="#8a5a2b"/>
+              <rect x="42" y="46" width="36" height="44" rx="3" fill="#f3e3bd" stroke="#c9922e" stroke-width="1.5"/>
+              <text x="60" y="66" text-anchor="middle" font-family="serif" font-weight="700" font-size="15" fill="#b8351f">御神</text>
+              <text x="60" y="84" text-anchor="middle" font-family="serif" font-weight="700" font-size="15" fill="#b8351f">籤</text>
+              <rect x="24" y="118" width="72" height="6" rx="3" fill="#7c4c20"/>
+            </svg>
+          </div>
+        </div>
+        <p class="press-status" id="pressStatus">鈴の綱を下へ引っぱってください</p>
+        <p class="draw-note">鈴が鳴ったら、結果までジャンプします。今日の運勢は、その日一日おなじ結果になります。</p>
+      </section>
+
+      <section class="result" id="result" aria-live="polite">
+        <div class="slip">
+          <div class="slip-inner">
+            <p class="slip-no" id="slipNo">第壱番</p>
+            <div class="rank-banner" id="rankBanner" data-fortune="大吉">
+              <p class="rank-deco" id="rankDeco">✨</p>
+              <p class="rank" id="rankText">大吉</p>
+              <p class="rank-en" id="rankEn">GREAT LUCK</p>
+            </div>
+            <p class="stars" id="rankStars"></p>
+            <p class="overall" id="overallText"></p>
+            <div class="divider"></div>
+
+            <div class="detail-grid">
+              <div class="detail">
+                <h3>
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="8.5"/><path d="M12 7v10M15.2 9.2c-.7-1-1.8-1.4-3.2-1.4-1.9 0-3.2 1-3.2 2.3 0 3 6.6 1.7 6.6 4.4 0 1.3-1.5 2.3-3.4 2.3-1.5 0-2.7-.6-3.4-1.6"/></svg>
+                  金運
+                </h3>
+                <p class="mini-stars" id="moneyStars"></p>
+                <p id="moneyText"></p>
+              </div>
+              <div class="detail">
+                <h3>
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7.5" width="18" height="12.5" rx="2"/><path d="M9 7.5V6a3 3 0 0 1 6 0v1.5M3 13h18"/></svg>
+                  仕事運
+                </h3>
+                <p class="mini-stars" id="workStars"></p>
+                <p id="workText"></p>
+              </div>
+              <div class="detail">
+                <h3>
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20.3C6.4 16.6 3.4 13.3 3.4 9.9 3.4 7.2 5.4 5.2 7.9 5.2c1.6 0 3.2.9 4.1 2.3.9-1.4 2.5-2.3 4.1-2.3 2.5 0 4.5 2 4.5 4.7 0 3.4-3 6.7-8.6 10.4z"/></svg>
+                  恋愛運
+                </h3>
+                <p class="mini-stars" id="loveStars"></p>
+                <p id="loveText"></p>
+              </div>
+              <div class="detail">
+                <h3>
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21c-4.8-2.3-8-5.8-8-10V6.2C4 4.9 4.9 4 6.2 4c2 0 3.9-.6 5.8-2 1.9 1.4 3.8 2 5.8 2C19.1 4 20 4.9 20 6.2V11c0 4.2-3.2 7.7-8 10z"/><path d="M8.5 12h2l1.2-2.6 1.8 4.8 1.2-2.2h1.8"/></svg>
+                  健康運
+                </h3>
+                <p class="mini-stars" id="healthStars"></p>
+                <p id="healthText"></p>
+              </div>
+            </div>
+
+            <div class="lucky-row">
+              <div class="lucky item">
+                <p class="label">ラッキーアイテム</p>
+                <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#c9922e" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom:4px"><path d="M12 3l1.9 4.6L18.5 9l-4.6 1.4L12 15l-1.9-4.6L5.5 9l4.6-1.4z"/><path d="M18.5 15.5l.9 2.1 2.1.9-2.1.9-.9 2.1-.9-2.1-2.1-.9 2.1-.9zM5 16l.7 1.7L7.4 18.4l-1.7.7L5 20.8l-.7-1.7L2.6 18.4l1.7-.7z"/></svg>
+                <p class="value" id="luckyItem"></p>
+                <p class="desc" id="luckyItemDesc"></p>
+              </div>
+              <div class="lucky dir">
+                <p class="label">ラッキーな方角（恵方）</p>
+                <svg class="compass" width="86" height="86" viewBox="0 0 100 100" role="img" aria-label="方位磁石">
+                  <circle cx="50" cy="50" r="46" fill="none" stroke="currentColor" stroke-width="1" opacity="0.25"/>
+                  <g id="compassDirs" font-size="13" font-weight="700" fill="currentColor" text-anchor="middle"></g>
+                  <g id="needle">
+                    <polygon points="50,16 55,50 45,50" fill="#d9482f"/>
+                    <polygon points="50,84 55,50 45,50" fill="currentColor" opacity="0.3"/>
+                  </g>
+                  <circle cx="50" cy="50" r="4" fill="#c9922e"/>
+                </svg>
+                <p class="value" id="luckyDir"></p>
+                <p class="desc" id="luckyDirDesc"></p>
+              </div>
+            </div>
+
+            <div class="kosuzu">
+              <div class="face" aria-hidden="true">
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#d9482f" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="10" r="5.5"/><path d="M5 21c.8-3.4 3.6-5 7-5s6.2 1.6 7 5"/><path d="M12 4.5V2.8M8.8 5.6 7.6 4M15.2 5.6 16.4 4"/></svg>
+              </div>
+              <div>
+                <p class="who">巫女コスズからひとこと</p>
+                <p id="kosuzuText"></p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div style="text-align:center">
+          <button class="again-btn" id="againBtn" type="button">もう一度見る</button>
+        </div>
+        <div class="result-goods">
+          <a href="https://is.gd/omikuji_link" target="_blank" rel="noopener">🎯 楽天の開運グッズも見る</a>
+        </div>
+      </section>
+
+      <section class="goods" aria-label="開運グッズのご案内">
+        <div class="goods-card">
+          <h2>🎯 開運グッズルーレット</h2>
+          <p>おみくじのあとは、開運グッズさがしもどうぞ。ルーレットを回すと、<strong>楽天の開運グッズ</strong>が商品写真と値段つきでランダムに出ます。商品はリンク集のページにまとめて置いてあります。</p>
+          <a class="goods-btn" href="https://is.gd/omikuji_link" target="_blank" rel="noopener">🎯 ルーレットで楽天の開運グッズを見る</a>
+          <p class="goods-note">※広告（PR）を含みます。ボタンを押すと「おみくじ日和 リンク集」のページが開きます。</p>
+        </div>
+      </section>
+
+      <section class="shorts" aria-label="ショート動画のご案内">
+        <div class="shorts-card">
+          <div class="shorts-frame" aria-hidden="true">
+            <div class="frame-toright">
+              <svg width="86" height="56" viewBox="0 0 150 96"><path d="M8 14 Q75 2 142 14 L138 24 Q75 14 12 24 Z" fill="#d9482f"/><rect x="20" y="28" width="110" height="7" rx="2" fill="#b8351f"/><rect x="32" y="35" width="8" height="52" fill="#d9482f"/><rect x="110" y="35" width="8" height="52" fill="#d9482f"/></svg>
+            </div>
+            <div class="shorts-overlay">
+              <p class="ov-catch">毎日、あなたの<br />運勢を占います</p>
+              <p class="ov-sub"><span class="nobr">今日のおみくじ</span><br /><span class="nobr">おみくじ日和</span></p>
+            </div>
+          </div>
+          <div class="shorts-body">
+            <h2>ショート動画でも、<br /><span class="nobr">毎日おみくじ</span></h2>
+            <p>YouTube<strong>「おみくじ日和」</strong>のショート動画では、巫女コスズと七福神が<strong>毎日、あなたの運勢を占います</strong>。約45秒の縦型動画で、その日の運勢をサッとチェック。ここで引いたおみくじと合わせて、動画でも今日の運勢をどうぞ。</p>
+            <ul class="shorts-points">
+              <li>今日の運勢（大吉〜凶）</li>
+              <li>ラッキーアイテムと方角</li>
+              <li>コスズのひとこと</li>
+            </ul>
+            <a class="shorts-btn" href="https://www.youtube.com/@omikuji_biyori" target="_blank" rel="noopener">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg>
+              ショート動画を見る
+            </a>
+            <p class="shorts-note">チャンネル登録をしておくと、毎日のおみくじを見逃しません。また明日もお待ちしています。</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="share" aria-label="友達に送る">
+        <div class="share-card">
+          <h2>📤 友達に送る</h2>
+          <p>今日のおみくじを、友達にも教えてあげましょう。</p>
+          <div class="native-share-wrap">
+            <button class="share-btn native-share" id="nativeShareBtn" type="button">📲 友だちに送る</button>
+            <p class="native-share-note">LINEがなくても大丈夫。携帯の共有メニューから、メールやメッセージなど入っている方法で送れます。</p>
+          </div>
+          <div class="share-grid">
+            <a class="share-btn line" href="https://social-plugins.line.me/lineit/share?url=https%3A%2F%2Fis.gd%2Fomikuji_today" target="_blank" rel="noopener noreferrer">💬 LINEで送る</a>
+            <a class="share-btn x" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fis.gd%2Fomikuji_today&text=%F0%9F%94%94%E9%88%B4%E3%82%92%E9%B3%B4%E3%82%89%E3%81%97%E3%81%A6%E3%80%81%E4%BB%8A%E6%97%A5%E3%81%AE%E9%81%8B%E5%8B%A2%E3%82%92%E5%8D%A0%E3%81%84%E3%81%BE%E3%81%97%E3%81%9F%E2%9B%A9%EF%B8%8F%20%23%E3%81%8A%E3%81%BF%E3%81%8F%E3%81%98%E6%97%A5%E5%92%8C%20%23%E3%81%8A%E3%81%BF%E3%81%8F%E3%81%98" target="_blank" rel="noopener noreferrer">𝕏 Xでシェア</a>
+            <a class="share-btn fb" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fis.gd%2Fomikuji_today" target="_blank" rel="noopener noreferrer">📘 Facebookでシェア</a>
+            <button class="share-btn copy" id="copyLinkBtn" type="button">🔗 リンクをコピー</button>
+          </div>
+          <div class="share-url">
+            <p class="su-label">このページのアドレス</p>
+            <input id="shareUrlText" type="text" readonly value="https://is.gd/omikuji_today" aria-label="このページの公開アドレス" />
+            <p class="su-note" id="shareUrlNote">タップするとアドレスが全部選ばれます。そのままコピーして、友達に送れます。</p>
+          </div>
+        </div>
+      </section>
+
+      <footer>
+        <p>おみくじは昔ながらの縁起もの。結果に一喜一憂しすぎず、今日を心地よく過ごすヒントにしてください。</p>
+        <p>また明日もお待ちしています。</p>
+      </footer>
+    </main>
+
+    <script>
+(function () {
+  "use strict";
+
+  /* ===== 日付（日本時間）と日替わり抽選（元アプリと同一の方式・同一結果） ===== */
+  function tokyoParts(d) {
+    var parts = new Intl.DateTimeFormat("ja-JP", {
+      timeZone: "Asia/Tokyo", year: "numeric", month: "numeric", day: "numeric", weekday: "short"
+    }).formatToParts(d), m = {};
+    parts.forEach(function (t) { m[t.type] = t.value; });
+    return m;
+  }
+  var nowParts = tokyoParts(new Date());
+  var todayKey = nowParts.year + "-" + nowParts.month + "-" + nowParts.day;
+  document.getElementById("dateLine").textContent =
+    nowParts.year + "年" + nowParts.month + "月" + nowParts.day + "日（" + nowParts.weekday + "）の運勢";
+
+  // FNV-1a ハッシュ（元アプリと同一）
+  function hashStr(t) {
+    var e = 2166136261;
+    for (var n = 0; n < t.length; n++) { e ^= t.charCodeAt(n); e = Math.imul(e, 16777619); }
+    return e >>> 0;
+  }
+  // 乱数生成（元アプリと同一アルゴリズム）
+  function makeRand(seed) {
+    var e = seed;
+    return function () {
+      e |= 0; e = e + 1831565813 | 0;
+      var n = Math.imul(e ^ e >>> 15, 1 | e);
+      n = n + Math.imul(n ^ n >>> 7, 61 | n) ^ n;
+      return ((n ^ n >>> 14) >>> 0) / 4294967296;
+    };
+  }
+
+  /* ===== 運勢データ（元アプリからそのまま抽出） ===== */
+  var RANKS = [
+    { name: "大吉", en: "EXCELLENT LUCK", stars: 5, weight: 22, bad: false,
+      overall: ["雲ひとつない晴れ模様の一日。思い切った一歩が、思わぬ福を連れてきます。笑顔で過ごすほど運が味方します。", "追い風が吹いています。ためらっていたことに手をつける好機。周りへの感謝を言葉にすると、福が巡ります。", "七福神みんなが微笑むような上々の一日。小さな親切が、大きな実りになって返ってきそうです。"],
+      money: ["思わぬ臨時収入や、うれしいお誘いの予感。ただし浮かれて散財は禁物。貯める楽しみも味わって。", "お金の巡りが良い日。気になっていた買い物は、よく比べて納得できたら吉。感謝の気持ちで使うと運気が上がります。"],
+      work: ["アイデアが冴える日。思いついたことはメモして、今日のうちに小さく形にしてみましょう。", "周りからの信頼が高まるとき。頼まれごとは快く引き受けると、次のチャンスにつながります。"],
+      love: ["素直な言葉が相手の心に届く日。ありがとうの一言を、少し多めにどうぞ。", "新しい出会いにも期待。笑顔と挨拶が、良いご縁の入口になります。"],
+      health: ["心も体も軽やか。軽い運動や散歩で、さらに運気を呼び込みましょう。", "快調な一日。深呼吸と早めの就寝で、この調子を明日へつないで。"] },
+    { name: "中吉", en: "GOOD LUCK", stars: 4, weight: 34, bad: false,
+      overall: ["穏やかに晴れる、過ごしやすい一日。焦らず一歩ずつ進めば、夕方には小さな手応えが感じられそうです。", "運は上向き。完璧を目指すより、できることを丁寧に。それが今日のいちばんの開運法です。", "身近なところに小さな幸せが隠れています。足元をよく見て、拾い集めるように過ごして。"],
+      money: ["大きな動きはないけれど、堅実な一日。固定費の見直しや、ポイントの整理にぴったりです。", "衝動買いは控えめに。買う前に一晩考える習慣が、着実に貯まる力になります。"],
+      work: ["コツコツ型が光る日。地味な作業ほど丁寧にこなすと、後から評価されます。", "同僚や相方との連携が鍵。小さな共有と報告をまめにすると、物事が滑らかに進みます。"],
+      love: ["穏やかな交流が吉。聞き役に回ると、相手との距離が自然と縮まります。", "懐かしい人からの連絡があるかも。返信は温かく、短くても心を込めて。"],
+      health: ["まずまずの調子。肩や首のストレッチで、午後のだるさを防ぎましょう。", "温かい飲み物でほっと一息。休むことも、運を整える大切な行いです。"] },
+    { name: "小吉", en: "SMALL LUCK", stars: 3, weight: 29, bad: false,
+      overall: ["小さな吉が点在する一日。派手さはないけれど、丁寧に過ごすほど味方が増えていきます。", "運気はゆるやかに回復中。今日は無理をせず、明日に備えて力を蓄える日と割り切って。", "見落としていた良いことに気づけそう。いつもの道を、少しだけゆっくり歩いてみて。"],
+      money: ["出入りは小さめで安定。お財布の中を整理すると、お金の流れも整います。", "お得情報に飛びつく前に一呼吸。本当に必要かを確かめる目が、今日の守り神です。"],
+      work: ["淡々と進めるのが吉。新しいことより、やりかけの仕事を片づけると気分も晴れます。", "小さなミスに注意。送信前・提出前にもう一度確認を。それだけで十分防げます。"],
+      love: ["控えめな優しさが伝わる日。相手のペースを尊重すると、関係が温まります。", "ひとりの時間も大切に。自分を整えることが、次の良い出会いへの準備になります。"],
+      health: ["疲れがたまり気味かも。早めにお風呂で温まって、体をいたわってください。", "睡眠のリズムを整える日。寝る前のスマホを少し短くするだけでも違いが出ます。"] },
+    { name: "凶", en: "BAD LUCK", stars: 1, weight: 15, bad: true,
+      overall: ["今日は慎重に過ごす日。でも大丈夫、凶は「ここから上向きになる」という知らせでもあります。無理をせず、静かに整える一日にしましょう。", "思わぬ足止めがあるかもしれません。予定が崩れても、それは別の道への案内かも。深呼吸して、できるところから。", "運気は谷のあたり。大きな決断は明日に回して、今日は身の回りの小さなことを整える日に。"],
+      money: ["大きな買い物や契約は今日は見送りが無難。お財布のひもは、今日だけ少し固めに結んで。", "うまい話には一呼吸おいて。焦って決めないことが、今日いちばんの金運アップです。"],
+      work: ["確認不足からのミスに注意。大事な連絡ほど、送る前にもう一度読み返して。", "今日は守りの日。新しい挑戦より、足元の仕事を静かに固めるほうが実りがあります。"],
+      love: ["言葉がすれ違いやすい日。言い過ぎに気をつけて、伝えたいことは短く、やさしく。", "今日は相手を変えようとせず、自分の気持ちを整える日に。人間関係の波は、明日には凪ぎます。"],
+      health: ["無理は禁物。体調に違和感があれば、早めに休む勇気を。温かい食事と睡眠がいちばんの薬です。", "冷えに注意の日。首・お腹・足首を温めて過ごすと、ぐっと楽になります。"] }
+  ];
+  var ITEMS = [
+    { name: "白いハンカチ", desc: "清潔感が運を呼びます。ポケットに一枚どうぞ。" },
+    { name: "小さなお守り", desc: "鞄の内ポケットに。心の支えになってくれます。" },
+    { name: "木の櫛（くし）", desc: "身だしなみを整えることが、今日の開運アクション。" },
+    { name: "丸いコインケース", desc: "お金の居場所を整えると、金運の巡りも整います。" },
+    { name: "水引のしおり", desc: "読書や学びの時間が、思わぬヒントをくれます。" },
+    { name: "鈴のキーホルダー", desc: "澄んだ音は邪気を払うと言われます。カバンにひとつ。" },
+    { name: "天然石のブレスレット", desc: "石のパワーがそっと背中を押してくれるはず。" },
+    { name: "招き猫の置物", desc: "玄関や机の上に。人も福も招き入れましょう。" },
+    { name: "扇子", desc: "末広がりの縁起物。スマートな所作が印象を上げます。" },
+    { name: "新しい靴下", desc: "足元から気分一新。歩く運気が軽くなります。" }
+  ];
+  var DIRS = [
+    { name: "北", deg: 0, desc: "静けさの方角。落ち着いて考えることに向いています。" },
+    { name: "北東", deg: 45, desc: "変化のはじまりの方角。新しい習慣のスタートに。" },
+    { name: "東", deg: 90, desc: "朝日昇る方角。物事のはじまりと発展を象徴します。" },
+    { name: "南東", deg: 135, desc: "良いご縁を運ぶ方角。人に会うならこちら方面へ。" },
+    { name: "南", deg: 180, desc: "華やかさの方角。明るい気持ちで出かけましょう。" },
+    { name: "南西", deg: 225, desc: "家庭と安定の方角。身近な人を大切にする日に。" },
+    { name: "西", deg: 270, desc: "金運と実りの方角。お買い物や商談に良いとされます。" },
+    { name: "北西", deg: 315, desc: "主人運の方角。段取りや計画を立てるのにぴったり。" }
+  ];
+  var KOSUZU = {
+    "大吉": "今日は七福神さまもにこにこです。その調子で、周りの人にも福をおすそ分けしてくださいね。",
+    "中吉": "焦らなくて大丈夫。小さな一歩の積み重ねが、いちばん確かな開運法ですよ。",
+    "小吉": "小さな吉は、見つけた人のもの。今日は「ありがとう」をたくさん拾っていきましょう。",
+    "凶": "凶はね、神社では「これから良くなる合図」とも言います。今日は温かくして、早めに休んでくださいね。明日はまた新しい運勢でお待ちしています。"
+  };
+  var RANK_DECO = { "大吉": "✨", "中吉": "🌸", "小吉": "🍀", "凶": "☁️" };
+
+  // 抽選（元アプリと乱数の消費順まで同一にして、同日は同じ結果になるようにしている）
+  function draw(dateStr) {
+    var rand = makeRand(hashStr("omikuji-biyori-" + dateStr));
+    function pick(arr) { return arr[Math.floor(rand() * arr.length)]; }
+    var total = RANKS.reduce(function (sum, r) { return sum + r.weight; }, 0);
+    var s = rand() * total, rank = RANKS[0];
+    for (var i = 0; i < RANKS.length; i++) { s -= RANKS[i].weight; if (s <= 0) { rank = RANKS[i]; break; } }
+    return {
+      no: Math.floor(rand() * 100) + 1,
+      rank: rank,
+      overall: pick(rank.overall),
+      money: pick(rank.money),
+      work: pick(rank.work),
+      love: pick(rank.love),
+      health: pick(rank.health),
+      moneyStars: Math.max(1, Math.min(5, rank.stars + (rand() > 0.6 ? 1 : 0) - (rand() > 0.85 ? 1 : 0))),
+      workStars: Math.max(1, Math.min(5, rank.stars + (rand() > 0.7 ? 1 : 0) - (rand() > 0.8 ? 1 : 0))),
+      loveStars: Math.max(1, Math.min(5, rank.stars + (rand() > 0.65 ? 1 : 0) - (rand() > 0.85 ? 1 : 0))),
+      healthStars: Math.max(1, Math.min(5, rank.stars + (rand() > 0.7 ? 1 : 0) - (rand() > 0.8 ? 1 : 0))),
+      item: pick(ITEMS),
+      dir: pick(DIRS)
+    };
+  }
+
+  var currentKey = todayKey;
+  var fortune = draw(todayKey);
+
+  function tokyoKeyNow() {
+    var p = new Intl.DateTimeFormat("ja-JP", { timeZone: "Asia/Tokyo", year: "numeric", month: "numeric", day: "numeric" }).formatToParts(new Date()), m = {};
+    p.forEach(function (t) { m[t.type] = t.value; });
+    return m.year + "-" + m.month + "-" + m.day;
+  }
+  function refreshIfNewDay() {
+    var k = tokyoKeyNow();
+    if (k !== currentKey) { currentKey = k; fortune = draw(k); }
+  }
+
+  /* ===== 結果の描画 ===== */
+  function starsHtml(n) {
+    var out = "";
+    for (var i = 1; i <= 5; i++) out += i <= n ? "★" : '<span class="off">★</span>';
+    return out;
+  }
+  var KANJI = ["", "一", "二", "三", "四", "五", "六", "七", "八", "九"];
+  function kanjiNum(n) {
+    if (n < 10) return KANJI[n];
+    var t = Math.floor(n / 10), o = n % 10;
+    return (t > 1 ? KANJI[t] : "") + "十" + (o ? KANJI[o] : "");
+  }
+  function drawCompass() {
+    var g = document.getElementById("compassDirs");
+    var labels = ["北", "東", "南", "西"], pos = [[50, 15], [88, 54], [50, 93], [12, 54]];
+    var ns = "http://www.w3.org/2000/svg";
+    labels.forEach(function (s, i) {
+      var t = document.createElementNS(ns, "text");
+      t.setAttribute("x", pos[i][0]); t.setAttribute("y", pos[i][1]);
+      t.textContent = s; g.appendChild(t);
+    });
+  }
+  function render() {
+    document.getElementById("slipNo").textContent = "第" + kanjiNum(fortune.no) + "番";
+    var banner = document.getElementById("rankBanner");
+    banner.setAttribute("data-fortune", fortune.rank.name);
+    document.getElementById("rankDeco").textContent = RANK_DECO[fortune.rank.name] || "";
+    document.getElementById("rankText").textContent = fortune.rank.name;
+    document.getElementById("rankEn").textContent = fortune.rank.en;
+    document.getElementById("rankStars").innerHTML = starsHtml(fortune.rank.stars);
+    document.getElementById("overallText").textContent = fortune.overall;
+    document.getElementById("moneyStars").innerHTML = starsHtml(fortune.moneyStars);
+    document.getElementById("moneyText").textContent = fortune.money;
+    document.getElementById("workStars").innerHTML = starsHtml(fortune.workStars);
+    document.getElementById("workText").textContent = fortune.work;
+    document.getElementById("loveStars").innerHTML = starsHtml(fortune.loveStars);
+    document.getElementById("loveText").textContent = fortune.love;
+    document.getElementById("healthStars").innerHTML = starsHtml(fortune.healthStars);
+    document.getElementById("healthText").textContent = fortune.health;
+    document.getElementById("luckyItem").textContent = fortune.item.name;
+    document.getElementById("luckyItemDesc").textContent = fortune.item.desc;
+    document.getElementById("luckyDir").textContent = fortune.dir.name;
+    document.getElementById("luckyDirDesc").textContent = fortune.dir.desc;
+    document.getElementById("needle").setAttribute("transform", "rotate(" + fortune.dir.deg + " 50 50)");
+    document.getElementById("kosuzuText").textContent = KOSUZU[fortune.rank.name];
+  }
+  function onIdle(fn) {
+    if ("requestIdleCallback" in window) requestIdleCallback(fn, { timeout: 1500 });
+    else setTimeout(fn, 0);
+  }
+  onIdle(function () { drawCompass(); render(); });
+
+  /* ===== 桜の花びら（初回の結果表示時） ===== */
+  function petals() {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    var colors = ["#f7b7c3", "#f9cdd4", "#f4a6b5", "#fbd9a0"];
+    for (var i = 0; i < 12; i++) {
+      var el = document.createElement("span");
+      el.className = "petal";
+      var size = 9 + Math.random() * 10;
+      el.style.left = Math.random() * 100 + "vw";
+      el.style.width = size + "px";
+      el.style.height = size * 0.72 + "px";
+      el.style.background = colors[i % colors.length];
+      el.style.borderRadius = "80% 0 80% 0";
+      el.style.animationDuration = 2.4 + Math.random() * 2.2 + "s";
+      el.style.animationDelay = Math.random() * 0.7 + "s";
+      document.body.appendChild(el);
+      (function (node) { setTimeout(function () { node.remove(); }, 6000); })(el);
+    }
+  }
+
+  /* ===== 鈴の音（元アプリと同じ WebAudio 合成：基本周波数2475Hzの倍音列＋ノイズの打撃音） ===== */
+  var audio = { ctx: null, master: null, noiseBuf: null };
+  function ensureAudio() {
+    var AC = window.AudioContext || window.webkitAudioContext;
+    if (!AC) return null;
+    if (!audio.ctx) audio.ctx = new AC();
+    var ctx = audio.ctx;
+    if (ctx.state === "suspended") { var p = ctx.resume(); if (p && p.catch) p.catch(function () {}); }
+    if (!audio.master) {
+      var master = ctx.createGain();
+      master.gain.value = 0.9;
+      master.connect(ctx.destination);
+      var len = Math.floor(ctx.sampleRate * 0.09);
+      var buf = ctx.createBuffer(1, len, ctx.sampleRate);
+      var data = buf.getChannelData(0);
+      for (var i = 0; i < len; i++) data[i] = Math.random() * 2 - 1;
+      audio.master = master; audio.noiseBuf = buf;
+    }
+    return ctx;
+  }
+  function strike(ctx, when, amp, baseFreq) {
+    var ratios = [1, 2.01, 2.67, 3.54, 4.62, 5.93, 7.81];
+    var gains = [1, 0.58, 0.46, 0.32, 0.2, 0.11, 0.055];
+    var decays = [1.7, 1.25, 0.95, 0.68, 0.46, 0.29, 0.17];
+    for (var k = 0; k < ratios.length; k++) {
+      var osc = ctx.createOscillator(), g = ctx.createGain();
+      osc.type = "sine";
+      osc.frequency.value = baseFreq * ratios[k] * (1 + (Math.random() - 0.5) * 0.0016);
+      g.gain.setValueAtTime(0.16 * amp * gains[k], when);
+      g.gain.exponentialRampToValueAtTime(0.0001, when + decays[k]);
+      osc.connect(g); g.connect(audio.master);
+      osc.start(when); osc.stop(when + decays[k] + 0.05);
+    }
+    var noise = ctx.createBufferSource(); noise.buffer = audio.noiseBuf;
+    var bp = ctx.createBiquadFilter(); bp.type = "bandpass"; bp.frequency.value = 5400; bp.Q.value = 0.9;
+    var hp = ctx.createBiquadFilter(); hp.type = "highpass"; hp.frequency.value = 2800;
+    var ng = ctx.createGain();
+    ng.gain.setValueAtTime(0.2 * amp, when);
+    ng.gain.exponentialRampToValueAtTime(0.0001, when + 0.07);
+    noise.connect(bp); bp.connect(hp); hp.connect(ng); ng.connect(audio.master);
+    noise.start(when); noise.stop(when + 0.1);
+    [2.76, 3.98].forEach(function (r) {
+      var osc = ctx.createOscillator(), g = ctx.createGain();
+      osc.type = "sine";
+      osc.frequency.value = baseFreq * r * 2;
+      g.gain.setValueAtTime(0.028 * amp, when);
+      g.gain.exponentialRampToValueAtTime(0.0001, when + 0.14);
+      osc.connect(g); g.connect(audio.master);
+      osc.start(when); osc.stop(when + 0.16);
+    });
+  }
+  function playBell() {
+    try {
+      var ctx = ensureAudio();
+      if (!ctx) return;
+      var t = ctx.currentTime + 0.01, F = 2475;
+      strike(ctx, t, 1, F);
+      strike(ctx, t + 0.105, 0.66, F * 1.012);
+      strike(ctx, t + 0.235, 0.88, F * 0.992);
+      strike(ctx, t + 0.405, 0.52, F * 1.016);
+      strike(ctx, t + 0.6, 0.3, F * 0.986);
+      strike(ctx, t + 0.79, 0.16, F * 1.005);
+    } catch (e) { /* 音が出なくても抽選は続行する */ }
+  }
+
+  /* ===== 鈴引きの操作（元アプリ v20 と同一：約36px以上引いて離した時だけ鳴る） ===== */
+  var stage = document.getElementById("stage");
+  var grip = document.getElementById("drawBtn");
+  var status = document.getElementById("pressStatus");
+  var result = document.getElementById("result");
+  var shown = false;      // 結果を表示済みか（花びらは初回だけ）
+  var busy = false;       // 鳴らしている最中か
+  var MAX_PULL = 96;      // 引ける最大量(px)
+  var NEED_PULL = 36;     // 鳴るのに必要な引き量(px)
+
+  function setPull(px) {
+    stage.style.setProperty("--pull", Math.max(0, Math.min(MAX_PULL, px)) + "px");
+  }
+  function resetStage() {
+    stage.classList.remove("is-pulling", "is-ringing", "is-dragging-rope");
+    setPull(0);
+  }
+  function scrollToResult() {
+    function go() {
+      try { result.scrollIntoView({ block: "start" }); } catch (e) { try { result.scrollIntoView(); } catch (e2) {} }
+      try {
+        var r = result.getBoundingClientRect();
+        if (r.top > 24 || r.top < -24) window.scrollBy(0, r.top - 10);
+      } catch (e) {}
+    }
+    go();
+    setTimeout(function () {
+      try {
+        var r = result.getBoundingClientRect();
+        var h = window.innerHeight || document.documentElement.clientHeight;
+        if (r.top > h * 0.5 || r.top < -40) go();
+      } catch (e) {}
+    }, 450);
+  }
+  function showResult() {
+    try {
+      refreshIfNewDay();
+      try { render(); } catch (e) {}
+      result.classList.remove("show");
+      void result.offsetWidth;
+      result.classList.add("show");
+      if (!shown) { try { petals(); } catch (e) {} }
+      status.textContent = "カランカラン♪ 今日のおみくじが出ました";
+      setTimeout(resetStage, 300);
+      scrollToResult();
+    } catch (e) {
+      try { result.classList.add("show"); } catch (e2) {}
+    } finally {
+      shown = true; busy = false; grip.disabled = false;
+    }
+  }
+  function ring() {
+    if (busy || grip.disabled) return;
+    busy = true; grip.disabled = true;
+    status.textContent = "カランカラン♪ 鈴がジャンプした！ 結果へジャンプします…";
+    stage.classList.remove("is-pulling", "is-ringing", "is-drawing");
+    void stage.offsetWidth;
+    setPull(MAX_PULL);
+    stage.classList.add("is-pulling", "is-ringing", "is-drawing");
+    setTimeout(showResult, 480);
+    try { playBell(); } catch (e) {}
+  }
+
+  // キーボード（Enter / Space）はアクセシビリティとして実行可（元アプリと同じ）
+  grip.addEventListener("keydown", function (ev) {
+    if (ev.key === "Enter" || ev.key === " ") { ev.preventDefault(); ring(); }
+  });
+
+  var dragging = false, startY = 0, curPull = 0, maxPull = 0;
+  grip.addEventListener("pointerdown", function (ev) {
+    if (busy) return;
+    dragging = true;
+    startY = ev.clientY; curPull = 0; maxPull = 0;
+    stage.classList.add("is-dragging-rope");
+    try { grip.setPointerCapture(ev.pointerId); } catch (e) {}
+    try { ensureAudio(); } catch (e) {}
+    ev.preventDefault();
+  });
+  grip.addEventListener("pointermove", function (ev) {
+    if (!dragging) return;
+    curPull = ev.clientY - startY;
+    if (curPull > maxPull) maxPull = curPull;
+    setPull(curPull);
+    if (curPull >= 24) status.textContent = "そのまま下まで引っぱって…！";
+  });
+  function endDrag(ev) {
+    if (!dragging) return;
+    dragging = false;
+    stage.classList.remove("is-dragging-rope");
+    var cancelled = !!(ev && ev.type === "pointercancel");
+    if (!cancelled && maxPull >= NEED_PULL) {
+      setPull(MAX_PULL);
+      ring();
+    } else {
+      setPull(0);
+      if (!cancelled && maxPull > 4) status.textContent = "もう少し下まで引っぱってみて";
+    }
+    curPull = 0; maxPull = 0;
+  }
+  grip.addEventListener("pointerup", endDrag);
+  grip.addEventListener("pointercancel", endDrag);
+
+  document.getElementById("againBtn").addEventListener("click", function () {
+    status.textContent = "鈴の綱を下へ引っぱってください";
+    try { stage.scrollIntoView({ block: "center" }); } catch (e) { try { stage.scrollIntoView(); } catch (e2) {} }
+  });
+})();
+    </script>
+    <script>
+(function () {
+  function init() {
+    var SHARE_URL = "https://is.gd/omikuji_today";
+    var SHARE_TITLE = "今日のおみくじ｜おみくじ日和";
+    var SHARE_TEXT = "🔔鈴を鳴らして、今日の運勢を占いました⛩️ 鈴を引いて今日の運勢を占う「おみくじ日和」です。あなたも占ってみてね。";
+    var copyBtn = document.getElementById("copyLinkBtn");
+    var shareBtn = document.getElementById("nativeShareBtn");
+    var urlInput = document.getElementById("shareUrlText");
+    var urlNote = document.getElementById("shareUrlNote");
+    var noteDefault = urlNote ? urlNote.textContent : "";
+    var copyTimer = null, shareTimer = null, noteTimer = null;
+    if (urlInput) urlInput.value = SHARE_URL;
+
+    function noteMsg(t) {
+      if (!urlNote) return;
+      urlNote.textContent = t;
+      if (noteTimer) clearTimeout(noteTimer);
+      noteTimer = setTimeout(function () { urlNote.textContent = noteDefault; }, 5000);
+    }
+    function selectUrl() {
+      if (!urlInput) return;
+      try { urlInput.focus(); urlInput.select(); urlInput.setSelectionRange(0, urlInput.value.length); } catch (e) {}
+    }
+    function fallbackCopy(onOk, onNg) {
+      var ta = document.createElement("textarea");
+      ta.value = SHARE_URL;
+      ta.setAttribute("readonly", "");
+      ta.style.position = "fixed"; ta.style.opacity = "0";
+      document.body.appendChild(ta);
+      ta.select();
+      try { ta.setSelectionRange(0, ta.value.length); } catch (e) {}
+      var ok = false;
+      try { ok = document.execCommand("copy"); } catch (e) {}
+      ta.remove();
+      if (ok) { if (onOk) onOk(); } else if (onNg) onNg();
+    }
+    function copyLink(onOk, onNg) {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(SHARE_URL).then(function () { if (onOk) onOk(); }, function () { fallbackCopy(onOk, onNg); });
+      } else fallbackCopy(onOk, onNg);
+    }
+    function copyFailed() {
+      selectUrl();
+      noteMsg("コピーできませんでした。上のアドレスが選ばれているので、そのまま長押しして「コピー」を押してください。");
+    }
+    if (copyBtn) copyBtn.addEventListener("click", function () {
+      copyLink(function () {
+        copyBtn.textContent = "✅ コピーしました";
+        copyBtn.classList.add("copied");
+        if (copyTimer) clearTimeout(copyTimer);
+        copyTimer = setTimeout(function () { copyBtn.textContent = "🔗 リンクをコピー"; copyBtn.classList.remove("copied"); }, 2500);
+      }, copyFailed);
+    });
+    if (urlInput) urlInput.addEventListener("click", function () {
+      selectUrl();
+      copyLink(function () { noteMsg("コピーしました ✅ そのまま友達に貼り付けて送れます。"); },
+        function () { selectUrl(); noteMsg("アドレスが選ばれています。長押しして「コピー」を押してください。"); });
+    });
+    if (shareBtn) shareBtn.addEventListener("click", function () {
+      var data = { title: SHARE_TITLE, text: SHARE_TEXT, url: SHARE_URL };
+      var canNative = false;
+      try { canNative = !!(navigator.share && (!navigator.canShare || navigator.canShare(data))); }
+      catch (e) { canNative = !!navigator.share; }
+      if (canNative) {
+        navigator.share(data).catch(function (err) {
+          if (err && err.name === "AbortError") return;
+          copyLink(function () {
+            shareBtn.textContent = "✅ コピーしました";
+            shareBtn.classList.add("copied");
+            if (shareTimer) clearTimeout(shareTimer);
+            shareTimer = setTimeout(function () { shareBtn.textContent = "📲 友だちに送る"; shareBtn.classList.remove("copied"); }, 2500);
+          }, copyFailed);
+        });
+      } else {
+        copyLink(function () {
+          shareBtn.textContent = "✅ コピーしました";
+          shareBtn.classList.add("copied");
+          if (shareTimer) clearTimeout(shareTimer);
+          shareTimer = setTimeout(function () { shareBtn.textContent = "📲 友だちに送る"; shareBtn.classList.remove("copied"); }, 2500);
+        }, copyFailed);
+      }
+    });
+  }
+  if ("requestIdleCallback" in window) requestIdleCallback(init, { timeout: 1500 });
+  else setTimeout(init, 0);
+})();
+    </script>
+  </body>
+</html>
