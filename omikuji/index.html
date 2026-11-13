@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>おみくじ＆リンク集｜おみくじ日和</title>
+<meta name="description" content="おみくじ日和と若大将ブログの軽量リンク集。画像なし・外部読み込みなしで、すぐ開きます。">
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",sans-serif;background:#fff7e8;color:#333;line-height:1.7}main{max-width:640px;margin:0 auto;padding:20px 16px 40px}h1{font-size:26px;text-align:center;margin:8px 0 4px}.sub{text-align:center;color:#666;font-size:14px;margin:0 0 20px}.card{background:#fff;border:2px solid #e8b64c;border-radius:14px;padding:18px;text-align:center;margin:0 0 20px}#result{font-size:22px;font-weight:700;min-height:34px;margin:6px 0}#msg{margin:6px 0 14px;color:#555}button{font-size:18px;font-weight:700;color:#fff;background:#d64569;border:0;border-radius:999px;padding:12px 28px;cursor:pointer}button:active{transform:scale(.97)}h2{font-size:18px;border-left:6px solid #e8b64c;padding-left:8px;margin:24px 0 10px}ul{list-style:none;margin:0;padding:0}li{margin:10px 0}a{color:#1a5fb4}a.link{display:block;background:#fff;border:1px solid #ddd;border-radius:10px;padding:12px 14px;text-decoration:none;color:#222;font-weight:700}a.link small{display:block;font-weight:400;color:#666;font-size:13px}.back{text-align:center;margin-top:24px;font-size:14px}
+</style>
+</head>
+<body>
+<main>
+<h1>🔮 おみくじ＆リンク集</h1>
+<p class="sub">画像なし・外部読み込みなしの軽量版です。サイドバーからはここへ軽く飛べます。</p>
+<section class="card">
+<h2 style="border:0;margin:0 0 6px;padding:0">おみくじを引く</h2>
+<p id="result">まだ引いていません</p>
+<p id="msg">ボタンを押すと、今日の運勢が出ます。</p>
+<button type="button" id="draw">おみくじを引く</button>
+</section>
+<section>
+<h2>リンク集</h2>
+<ul>
+<li><a class="link" href="https://mh0077710-a11y.github.io/song-machine/">🎵 今日の1曲マシン<small>GitHub版・画像なしで軽く開きます</small></a></li>
+<li><a class="link" href="https://michijapan.seesaa.net/">🔮 おみくじ日和ブログ<small>https://michijapan.seesaa.net/</small></a></li>
+<li><a class="link" href="https://waka003.seesaa.net/">🎸 若大将ブログ<small>https://waka003.seesaa.net/</small></a></li>
+<li><a class="link" href="https://michijapan.seesaa.net/article/521904203.html">🍀 開運グッズフェア<small>おみくじ日和ブログの記事へ</small></a></li>
+<li><a class="link" href="https://michijapan.seesaa.net/article/521937587.html">👗 コスズの今日のコーデ<small>おみくじ日和ブログの記事へ</small></a></li>
+<li><a class="link" href="https://waka003.seesaa.net/article/521996179.html">📻 おみくじ日和ラジオ 投票はこちら<small>若大将ブログの投票記事へ</small></a></li>
+<li><a class="link" href="https://is.gd/omikuji_link">🔗 リンク集（従来のリンク先）<small>https://is.gd/omikuji_link</small></a></li>
+</ul>
+</section>
+<p class="back"><a href="https://michijapan.seesaa.net/">おみくじ日和へ戻る</a> ・ <a href="https://waka003.seesaa.net/">若大将ブログへ戻る</a></p>
+</main>
+<script>
+var fortunes=[{n:"大吉",m:"今日はとてもいい日。思い切って楽しみましょう。",c:"#c00"},{n:"中吉",m:"いい流れが来ています。笑顔で過ごしましょう。",c:"#d64569"},{n:"小吉",m:"小さな幸せが見つかる日です。",c:"#b26a00"},{n:"吉",m:"穏やかな一日。好きな曲を聴いてみましょう。",c:"#1a7a3a"},{n:"末吉",m:"ゆっくりいきましょう。焦らなくて大丈夫です。",c:"#555"},{n:"凶",m:"無理せず、のんびりいきましょう。明日はきっといい日です。",c:"#555"}];
+document.getElementById("draw").addEventListener("click",function(){var f=fortunes[Math.floor(Math.random()*fortunes.length)];var r=document.getElementById("result");r.textContent=f.n;r.style.color=f.c;document.getElementById("msg").textContent=f.m;});
+</script>
+</body>
+</html>
