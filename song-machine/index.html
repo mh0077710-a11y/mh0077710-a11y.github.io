@@ -107,7 +107,14 @@
         border-radius: 50%;
         background:
           repeating-radial-gradient(circle at center, #222 0 3px, #2e2e2e 3px 6px);
-        box-shadow: 0 12px 28px rgba(0, 0, 0, 0.35), inset 0 0 0 4px #111;
+        box-shadow: 0 24px 36px rgba(0, 0, 0, 0.55), 0 8px 14px rgba(0, 0, 0, 0.45), inset 0 0 0 4px #111, inset 0 3px 4px rgba(255, 255, 255, 0.28), inset 0 -6px 10px rgba(0, 0, 0, 0.55);
+      }
+      .disc::before {
+        content: "";
+        position: absolute; inset: 0;
+        border-radius: 50%;
+        background: conic-gradient(from 210deg, transparent 0deg, rgba(255, 255, 255, 0.16) 16deg, transparent 44deg, transparent 178deg, rgba(255, 255, 255, 0.12) 198deg, transparent 226deg);
+        pointer-events: none;
       }
       .disc.spinning { animation: spin 0.55s linear infinite; }
       .disc.idle { animation: spin 7s linear infinite; }
@@ -119,8 +126,8 @@
         transform: translate(-50%, -50%);
         border-radius: 50%;
         overflow: hidden;
-        border: 4px solid #ff6fb3;
-        box-shadow: 0 0 0 3px rgba(0,0,0,0.25), 0 6px 16px rgba(0,0,0,0.3), 0 0 20px rgba(255, 111, 179, 0.6);
+        border: 6px solid #ff6fb3;
+        box-shadow: 0 0 0 3px rgba(0,0,0,0.25), 0 12px 24px rgba(0,0,0,0.45), 0 0 20px rgba(255, 111, 179, 0.6);
         background: #f3e9d2;
         display: flex; align-items: center; justify-content: center;
       }
