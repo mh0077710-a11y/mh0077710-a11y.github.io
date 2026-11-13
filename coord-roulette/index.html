@@ -172,14 +172,14 @@ color: #8a4a6e;
 }
 #coordRoulette .coord-draw-btn {
 margin-top: 16px;
-width: 156px;
-height: 156px;
-font-size: 20px;
-line-height: 1.45;
+width: 142px;
+height: 142px;
+font-size: 18px;
+line-height: 1.4;
 }
 #coordRoulette .coord-draw-btn .slot-draw-sub {
-font-size: 12.5px;
-margin-top: 4px;
+font-size: 11.5px;
+margin-top: 3px;
 }
 #coordRoulette .slot-result {
 width: 100%;
@@ -235,7 +235,7 @@ color: #7a5570;
 }
 @media (max-width: 380px) {
 #coordRoulette { padding: 26px 16px 22px;}
-#coordRoulette .coord-draw-btn { width: 148px; height: 148px;}
+#coordRoulette .coord-draw-btn { width: 134px; height: 134px;}
 }
 /* ---------- スロット型ルーレット共通（1位ルーレット／コーデルーレット） ---------- */
 /* 今日の1曲マシンと同じ型：大きな写真が約2秒くるくる切り替わって止まり、金枠の結果カードが出る */
@@ -246,6 +246,8 @@ color: #7a5570;
 .slot-status { min-height: 20px; font-size: 12.5px; font-weight: 700; color: var(--ink-soft); margin: 2px 0 0;}
 .slot-draw-btn {
 margin-top: 12px;
+margin-left: auto;
+margin-right: auto;
 width: 136px; height: 136px;
 border-radius: 50%;
 border: none;
@@ -255,6 +257,12 @@ color: #fff;
 font-size: 17px;
 font-weight: 900;
 line-height: 1.4;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+text-align: center;
+padding: 8px 10px;
 transition: transform .08s ease, box-shadow .08s ease;
 -webkit-tap-highlight-color: transparent;
 }
