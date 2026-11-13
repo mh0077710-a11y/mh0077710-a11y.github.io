@@ -6,7 +6,61 @@
 <title>おみくじ＆リンク集｜おみくじ日和</title>
 <meta name="description" content="おみくじ日和と若大将ブログの軽量リンク集。画像なし・外部読み込みなしで、すぐ開きます。">
 <style>
-*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",sans-serif;background:#fff7e8;color:#333;line-height:1.7}main{max-width:640px;margin:0 auto;padding:20px 16px 40px}h1{font-size:26px;text-align:center;margin:8px 0 4px}.sub{text-align:center;color:#666;font-size:14px;margin:0 0 20px}.card{background:#fff;border:2px solid #e8b64c;border-radius:14px;padding:18px;text-align:center;margin:0 0 20px}#result{font-size:22px;font-weight:700;min-height:34px;margin:6px 0}#msg{margin:6px 0 14px;color:#555}button{font-size:18px;font-weight:700;color:#fff;background:#d64569;border:0;border-radius:999px;padding:12px 28px;cursor:pointer}button:active{transform:scale(.97)}h2{font-size:18px;border-left:6px solid #e8b64c;padding-left:8px;margin:24px 0 10px}ul{list-style:none;margin:0;padding:0}li{margin:10px 0}a{color:#1a5fb4}a.link{display:block;background:#fff;border:1px solid #ddd;border-radius:10px;padding:12px 14px;text-decoration:none;color:#222;font-weight:700}a.link small{display:block;font-weight:400;color:#666;font-size:13px}.back{text-align:center;margin-top:24px;font-size:14px}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;font-family:system-ui,-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",sans-serif;background:#fff7e8;color:#333;line-height:1.7;overflow-x:hidden}
+main{width:100%;max-width:640px;margin:0 auto;padding:20px 16px 40px}
+h1{font-size:26px;text-align:center;margin:8px 0 4px;overflow-wrap:anywhere}
+.sub{text-align:center;color:#666;font-size:14px;margin:0 0 20px}
+.card{background:#fff;border:2px solid #e8b64c;border-radius:14px;padding:18px;text-align:center;margin:0 0 20px}
+#result{font-size:22px;font-weight:700;min-height:34px;margin:6px 0}
+#result[data-fortune]{display:block;width:100%;margin:10px 0 12px;padding:20px 10px;border:3px solid transparent;border-radius:16px;font-size:clamp(44px,13vw,64px);line-height:1.15;letter-spacing:.06em;text-align:center;overflow-wrap:anywhere}
+#result[data-fortune="daikichi"]{background:linear-gradient(135deg,#fff6bf,#ffcf4d);border-color:#c99600;color:#a30000;box-shadow:0 4px 0 #c99600,0 8px 18px rgba(180,120,0,.25)}
+#result[data-fortune="daikichi"]::before{content:"✨ "}
+#result[data-fortune="daikichi"]::after{content:" ✨"}
+#result[data-fortune="chuukichi"]{background:linear-gradient(135deg,#ffe3ee,#ffb9cf);border-color:#d64569;color:#a4133c;box-shadow:0 4px 0 #d64569,0 8px 18px rgba(214,69,105,.22)}
+#result[data-fortune="chuukichi"]::before{content:"🌸 "}
+#result[data-fortune="chuukichi"]::after{content:" 🌸"}
+#result[data-fortune="shoukichi"]{background:linear-gradient(135deg,#fff0d0,#ffc978);border-color:#c77f0a;color:#7a4a00;box-shadow:0 4px 0 #c77f0a,0 8px 18px rgba(180,120,0,.2)}
+#result[data-fortune="shoukichi"]::before{content:"🍀 "}
+#result[data-fortune="shoukichi"]::after{content:" 🍀"}
+#result[data-fortune="kichi"]{background:linear-gradient(135deg,#e6f7e6,#a9e6a9);border-color:#2e8b57;color:#145c2e;box-shadow:0 4px 0 #2e8b57,0 8px 18px rgba(46,139,87,.2)}
+#result[data-fortune="kichi"]::before{content:"🌿 "}
+#result[data-fortune="kichi"]::after{content:" 🌿"}
+#result[data-fortune="suekichi"]{background:linear-gradient(135deg,#eaf1fb,#bcd3f2);border-color:#5b7fa6;color:#2e4a6e;box-shadow:0 4px 0 #5b7fa6,0 8px 18px rgba(91,127,166,.2)}
+#result[data-fortune="suekichi"]::before{content:"🌈 "}
+#result[data-fortune="suekichi"]::after{content:" 🌈"}
+#result[data-fortune="kyou"]{background:linear-gradient(135deg,#f0f0f3,#d8d8de);border-color:#777;color:#444;box-shadow:0 4px 0 #777,0 8px 18px rgba(0,0,0,.15)}
+#result[data-fortune="kyou"]::before{content:"☁️ "}
+#result[data-fortune="kyou"]::after{content:" ☁️"}
+#msg{margin:6px 0 14px;color:#555}
+button{width:100%;max-width:340px;min-height:56px;font-size:19px;font-weight:700;color:#fff;background:#d64569;border:0;border-radius:999px;padding:14px 28px;cursor:pointer}
+button:active{transform:scale(.97)}
+h2{font-size:18px;border-left:6px solid #e8b64c;padding-left:8px;margin:24px 0 10px}
+ul{list-style:none;margin:0;padding:0}
+li{margin:10px 0}
+a{color:#1a5fb4}
+a.link{position:relative;display:flex;flex-direction:column;justify-content:center;width:100%;min-height:64px;background:#fff;border:1px solid #ddd;border-radius:14px;padding:16px 44px 16px 16px;text-decoration:none;color:#222;font-weight:700;font-size:17px;line-height:1.5;overflow-wrap:anywhere}
+a.link::after{content:"›";position:absolute;right:16px;top:50%;transform:translateY(-50%);font-size:28px;line-height:1;color:#999}
+a.link small{display:block;font-weight:400;color:#666;font-size:13px;overflow-wrap:anywhere;word-break:break-all}
+a.link.record{flex-direction:row;align-items:center;gap:14px;background:linear-gradient(135deg,#fff6e0,#ffe9f2);border-color:#e8b64c}
+a.link.record .link-text{flex:1;min-width:0}
+.disc{flex:0 0 auto;position:relative;width:54px;height:54px;border-radius:50%;background:repeating-radial-gradient(circle at 50% 50%,#151515 0 2px,#2e2e2e 2px 5px);box-shadow:0 2px 6px rgba(0,0,0,.35),inset 0 0 0 2px #000}
+.disc::before{content:"";position:absolute;inset:0;margin:auto;width:20px;height:20px;border-radius:50%;background:#d64569;border:2px solid #fff7e8}
+.disc::after{content:"";position:absolute;inset:0;margin:auto;width:6px;height:6px;border-radius:50%;background:#fff7e8}
+@media (prefers-reduced-motion:no-preference){.disc{animation:spin 9s linear infinite}}
+@keyframes spin{to{transform:rotate(360deg)}}
+.back{text-align:center;margin-top:24px;font-size:14px;overflow-wrap:anywhere}
+@media (max-width:480px){
+main{padding:16px 12px 32px}
+h1{font-size:24px}
+.card{padding:16px 12px}
+button{max-width:none}
+#result[data-fortune]{font-size:clamp(42px,14vw,56px);padding:18px 8px}
+a.link{min-height:60px;padding:15px 40px 15px 16px}
+a.link.record{gap:12px}
+.disc{width:50px;height:50px}
+}
 </style>
 </head>
 <body>
@@ -15,14 +69,14 @@
 <p class="sub">画像なし・外部読み込みなしの軽量版です。サイドバーからはここへ軽く飛べます。</p>
 <section class="card">
 <h2 style="border:0;margin:0 0 6px;padding:0">おみくじを引く</h2>
-<p id="result">まだ引いていません</p>
+<p id="result" aria-live="polite">まだ引いていません</p>
 <p id="msg">ボタンを押すと、今日の運勢が出ます。</p>
 <button type="button" id="draw">おみくじを引く</button>
 </section>
 <section>
 <h2>リンク集</h2>
 <ul>
-<li><a class="link" href="https://mh0077710-a11y.github.io/song-machine/">🎵 今日の1曲マシン<small>GitHub版・画像なしで軽く開きます</small></a></li>
+<li><a class="link record" href="https://mh0077710-a11y.github.io/song-machine/"><span class="disc" aria-hidden="true"></span><span class="link-text">🎵 今日の1曲マシン<small>GitHub版・画像なしで軽く開きます</small></span></a></li>
 <li><a class="link" href="https://michijapan.seesaa.net/">🔮 おみくじ日和ブログ<small>https://michijapan.seesaa.net/</small></a></li>
 <li><a class="link" href="https://waka003.seesaa.net/">🎸 若大将ブログ<small>https://waka003.seesaa.net/</small></a></li>
 <li><a class="link" href="https://michijapan.seesaa.net/article/521904203.html">🍀 開運グッズフェア<small>おみくじ日和ブログの記事へ</small></a></li>
@@ -34,8 +88,8 @@
 <p class="back"><a href="https://michijapan.seesaa.net/">おみくじ日和へ戻る</a> ・ <a href="https://waka003.seesaa.net/">若大将ブログへ戻る</a></p>
 </main>
 <script>
-var fortunes=[{n:"大吉",m:"今日はとてもいい日。思い切って楽しみましょう。",c:"#c00"},{n:"中吉",m:"いい流れが来ています。笑顔で過ごしましょう。",c:"#d64569"},{n:"小吉",m:"小さな幸せが見つかる日です。",c:"#b26a00"},{n:"吉",m:"穏やかな一日。好きな曲を聴いてみましょう。",c:"#1a7a3a"},{n:"末吉",m:"ゆっくりいきましょう。焦らなくて大丈夫です。",c:"#555"},{n:"凶",m:"無理せず、のんびりいきましょう。明日はきっといい日です。",c:"#555"}];
-document.getElementById("draw").addEventListener("click",function(){var f=fortunes[Math.floor(Math.random()*fortunes.length)];var r=document.getElementById("result");r.textContent=f.n;r.style.color=f.c;document.getElementById("msg").textContent=f.m;});
+var fortunes=[{n:"大吉",k:"daikichi",m:"今日はとてもいい日。思い切って楽しみましょう。"},{n:"中吉",k:"chuukichi",m:"いい流れが来ています。笑顔で過ごしましょう。"},{n:"小吉",k:"shoukichi",m:"小さな幸せが見つかる日です。"},{n:"吉",k:"kichi",m:"穏やかな一日。好きな曲を聴いてみましょう。"},{n:"末吉",k:"suekichi",m:"ゆっくりいきましょう。焦らなくて大丈夫です。"},{n:"凶",k:"kyou",m:"無理せず、のんびりいきましょう。明日はきっといい日です。"}];
+document.getElementById("draw").addEventListener("click",function(){var f=fortunes[Math.floor(Math.random()*fortunes.length)];var r=document.getElementById("result");r.textContent=f.n;r.setAttribute("data-fortune",f.k);document.getElementById("msg").textContent=f.m;});
 </script>
 </body>
 </html>
