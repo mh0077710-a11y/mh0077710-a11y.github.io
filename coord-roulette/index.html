@@ -333,6 +333,37 @@ body{line-height:1.7;}
 p{line-height:1.7;}
 p + p{margin-top:.8em;}
 </style>
+<style id="design-refresh-20251125">
+/* ===== デザイン刷新（2025-11-25）=====
+   ブランドファッションに合う、洗練されたおしゃれ感に寄せた仕上げ。
+   ・白い面（結果カード／【PR】タグ）には、シャツ生地のような細いクロスライン
+     （ヘアライン）をごく薄く敷く。派手にせず、近くで見ると分かる程度の濃さ。
+   ・文字は文節の途中で切れないよう整え、見出しは行のバランスを取る。
+   商品データ・ルーレットの動作・【PR】表記には触れていない */
+body { line-break: strict;}
+h1, h2, h3 { text-wrap: balance;}
+p { text-wrap: pretty;}
+.site-head h1 { letter-spacing:.06em;}
+#coordRoulette .lead,
+#coordRoulette .slot-now,
+#coordRoulette .slot-status,
+#coordRoulette .slot-sub,
+#coordRoulette .slot-result h3,
+#coordRoulette .pr-note { word-break: auto-phrase; overflow-wrap: break-word;}
+#coordRoulette .slot-result {
+background-image:
+repeating-linear-gradient(45deg, rgba(161, 42, 119,.05) 0, rgba(161, 42, 119,.05) 1px, transparent 1px, transparent 11px),
+repeating-linear-gradient(-45deg, rgba(178, 141, 87,.055) 0, rgba(178, 141, 87,.055) 1px, transparent 1px, transparent 11px);
+padding: 24px 20px 20px;
+}
+#coordRoulette .pr-tag {
+background-image:
+repeating-linear-gradient(45deg, rgba(161, 42, 119,.05) 0, rgba(161, 42, 119,.05) 1px, transparent 1px, transparent 11px);
+}
+#coordRoulette .slot-sub { line-height: 1.85;}
+#coordRoulette .slot-links a { letter-spacing:.03em;}
+#coordRoulette > .pr-note { letter-spacing:.01em;}
+</style>
 </head>
 <body>
 <main>
