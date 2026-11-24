@@ -1111,6 +1111,28 @@ overflow-wrap: break-word;
 .travel-link small { margin-top: 3px;}
 .foot { text-wrap: pretty;}
 </style>
+<style id="layout-fix-20251125">
+/* ===== レイアウト追加修正（2025-11-25）=====
+   見出しの横に【PR】タグが横並びになっている箇所（.shelf-head）は、
+   横並びをやめて縦に積み、【PR】タグを見出しの下段に落とす。
+   ページ全体がきれいな1列（中央揃え）に揃うようにするための上書き。
+   デザイン刷新（薄い青海波風の模様・文字の整え）はそのまま活かす。
+   リンク先・文言・並び順・各ルーレットやマシンの動作には触れていない */
+.shelf-head {
+flex-direction: column;
+align-items: center;
+justify-content: center;
+gap: 6px;
+}
+.shelf-head h2, .shelf-head h3 { text-align: center;}
+.shelf-head .pr-tag { margin-top: 0; align-self: center;}
+#coordRoulette .shelf-head, #rankRoulette .shelf-head {
+flex-direction: column;
+align-items: center;
+justify-content: center;
+}
+#coordRoulette .shelf-head .pr-tag, #rankRoulette .shelf-head .pr-tag { margin-top: 0;}
+</style>
 </head>
 <body>
 <main>
