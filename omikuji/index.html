@@ -1072,6 +1072,45 @@ body{line-height:1.7;}
 p{line-height:1.7;}
 p + p{margin-top:.8em;}
 </style>
+<style id="design-refresh-20251125">
+/* ===== デザイン刷新（2025-11-25）=====
+   世界観（神社・ピンクと金の色合い）は壊さず、おしゃれ感のあるトーンに寄せた仕上げ。
+   ・白い面（カード／結果ボックス／商品タイル／ステージ）には、青海波を思わせる
+     重なり円の細線模様をごく薄いピンクで敷く。遠目ではほぼ無地、近くでほのかに
+     分かる濃さにして、本文の読みやすさは邪魔しない。
+   ・文字は文節の途中で切れないよう整え、見出しは行のバランスを取り、
+     カードの余白を少し広げて上品な空気感にする。
+   リンク先・文言の中身・並び順・商品データ・動作には触れていない */
+:root {
+--wa-rings: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewBox='0 0 48 48'%3E%3Cg fill='none' stroke='%23c93a97'%3E%3Ccircle cx='0' cy='0' r='23' stroke-opacity='.06'/%3E%3Ccircle cx='48' cy='0' r='23' stroke-opacity='.06'/%3E%3Ccircle cx='0' cy='48' r='23' stroke-opacity='.06'/%3E%3Ccircle cx='48' cy='48' r='23' stroke-opacity='.06'/%3E%3Ccircle cx='24' cy='24' r='23' stroke-opacity='.06'/%3E%3Ccircle cx='0' cy='0' r='15' stroke-opacity='.045'/%3E%3Ccircle cx='48' cy='0' r='15' stroke-opacity='.045'/%3E%3Ccircle cx='0' cy='48' r='15' stroke-opacity='.045'/%3E%3Ccircle cx='48' cy='48' r='15' stroke-opacity='.045'/%3E%3Ccircle cx='24' cy='24' r='15' stroke-opacity='.045'/%3E%3C/g%3E%3C/svg%3E");
+}
+body { line-break: strict;}
+h1, h2, h3 { text-wrap: balance;}
+p { text-wrap: pretty;}
+.card { padding: 24px 20px;}
+.card h2 { letter-spacing:.03em; margin-bottom: 10px;}
+.card .lead { max-width: 32em;}
+.pr-note { max-width: 34em; margin-left: auto; margin-right: auto;}
+.card, .result, .song-result, .slot-result, .item, .slot-stage {
+background-image: var(--wa-rings);
+background-size: 48px 48px;
+}
+#coordRoulette .slot-result, #rankRoulette .slot-result {
+background-image: var(--wa-rings);
+background-size: 48px 48px;
+}
+.lead, .pr-note, .spin-note, .waiting-text, .shelf-note, .share-native-note,
+.share-url-note, .coord-text, .kosuzu p, .slot-now, .slot-status, .song-now,
+.song-status, .song-comment, .item .name, .shelf-item-name, .lucky-name,
+.slot-sub, .result h3, .slot-result h3, .song-result h3 {
+word-break: auto-phrase;
+overflow-wrap: break-word;
+}
+.item .name { line-height: 1.55;}
+.travel-link { line-height: 1.55;}
+.travel-link small { margin-top: 3px;}
+.foot { text-wrap: pretty;}
+</style>
 </head>
 <body>
 <main>
@@ -2335,6 +2374,5 @@ p + p{margin-top:.8em;}
         });
       })();
     </script>
-<script data-goatcounter="https://omikuji-link.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
-</body>
+  </body>
 </html>
