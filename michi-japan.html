@@ -292,6 +292,15 @@ img{height:auto}
 .fair-featured .fair-img-link{aspect-ratio:4/3;overflow:hidden}
 .fair-featured .fair-img-link img{width:100%;height:100%;object-fit:contain}
 </style>
+<style>
+/* ===== タップ確実化（2026-11-24） ===== */
+/* 原因：おみくじボタン等の操作ボタン本体に、拡大縮小し続ける脈動アニメーション（cta-pulse）が付いていた。ボタン自体が動き続けるとタップ判定が安定せず、タッチしても反応しないことがあった（アニメーションのないクイズ・ルーレットのボタンは正常に反応していた）。 */
+/* 対策：操作するボタン・リンク本体の脈動を止める。飾りのバッジ（pointer-events:none でタップ対象ではないもの）は今まで通り脈動させる */
+.cta-red{animation:none}
+.no1-text-link{animation:none}
+/* タップの反応を速く・確実にする（ダブルタップズーム待ちによる反応遅れをなくす） */
+a,button{touch-action:manipulation}
+</style>
 </head>
 <body>
   <div class="page">
@@ -1445,7 +1454,6 @@ img{height:auto}
   qRetry.addEventListener("click", function(){
     qi = 0; qScored = 0;
     qResult.hidden = true;
-    qBody.rue;
     qBody.hidden = false;
     renderQuiz();
   });
@@ -1616,15 +1624,11 @@ img{height:auto}
       frame();
       watchdog = setTimeout(finish, DURATION + 600);
     }
+    /* 回転は「タップした時だけ」始める。以前は画面に入っただけで自動で回り始め、
+       大谷ステージでは回転の開始と同時にボタンが隠れる仕掛けだったため、
+       スクロールしてきた人のタップがボタンに届く前にボタンが消えてしまい、
+       「タッチしても商品が回らない」状態になっていた */
     btn.addEventListener("click", spin);
-    if ("IntersectionObserver" in window) {
-      var io = new IntersectionObserver(function(entries){
-        for (var e = 0; e < entries.length; e++) {
-          if (entries[e].isIntersecting && !played) { played = true; spin(); io.disconnect(); }
-        }
-      }, { threshold: 0.3 });
-      io.observe(btn);
-    } else if (!played) { played = true; spin(); }
     spin.finishNow = finish;
     return spin;
   }
