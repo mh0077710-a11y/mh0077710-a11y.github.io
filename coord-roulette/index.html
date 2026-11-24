@@ -434,6 +434,24 @@ word-break: auto-phrase;
 #coordRoulette .slot-result { padding: 22px 16px 18px;}
 }
 </style>
+<style id="color-fix-20251125">
+/* ===== 色の調整（2025-11-25）=====
+   ・全体のトーンを一段明るく（ダークモード側の紫っぽい暗い背景も明るく）
+   ・今日のコーデの背景は、今より明るいピンク系に一段明るく
+   ・結果ボードは白ではなく、明るめのピンクに
+   商品データ・リンク・動作・【PR】表記・フォントには触れていない */
+@media (prefers-color-scheme: dark) {
+:root {
+--bg-a: #4b3573;
+--bg-b: #7d3a6e;
+--card: rgba(72, 50, 76,.94);
+--card-line: #8a5f8c;
+}
+}
+#coordRoulette { background: linear-gradient(180deg, #fff9fc 0%, #ffe9f5 52%, #ffd8ec 100%); }
+#coordRoulette .slot-stage { background-color: #fff3fa; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64' viewBox='0 0 64 64'%3E%3Cg fill='%23f6a5cf'%3E%3Cpath opacity='.55' d='M18 6 C23 12 23 19 18 25 C13 19 13 12 18 6 Z'/%3E%3Cpath opacity='.38' d='M50 34 C54 39 54 44 50 49 C46 44 46 39 50 34 Z'/%3E%3C/g%3E%3Ccircle cx='44' cy='14' r='2.2' fill='%23f2bcd9' opacity='.85'/%3E%3Ccircle cx='10' cy='46' r='1.8' fill='%23f2bcd9' opacity='.85'/%3E%3Ccircle cx='31' cy='55' r='1.4' fill='%23f6a5cf' opacity='.6'/%3E%3C/svg%3E"), linear-gradient(160deg, #fffcfd 0%, #fff1f8 58%, #ffe7f3 100%); }
+#coordRoulette .slot-result { background-color: #ffe9f4; }
+</style>
 </head>
 <body>
 <main>
