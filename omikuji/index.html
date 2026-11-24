@@ -1174,6 +1174,29 @@ box-shadow: 0 16px 34px rgba(46, 140, 220,.32);
 #coordRoulette .slot-stage { background-color: #fff3fa; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64' viewBox='0 0 64 64'%3E%3Cg fill='%23f6a5cf'%3E%3Cpath opacity='.55' d='M18 6 C23 12 23 19 18 25 C13 19 13 12 18 6 Z'/%3E%3Cpath opacity='.38' d='M50 34 C54 39 54 44 50 49 C46 44 46 39 50 34 Z'/%3E%3C/g%3E%3Ccircle cx='44' cy='14' r='2.2' fill='%23f2bcd9' opacity='.85'/%3E%3Ccircle cx='10' cy='46' r='1.8' fill='%23f2bcd9' opacity='.85'/%3E%3Ccircle cx='31' cy='55' r='1.4' fill='%23f6a5cf' opacity='.6'/%3E%3C/svg%3E"), linear-gradient(160deg, #fffcfd 0%, #fff1f8 58%, #ffe7f3 100%); }
 #coordRoulette .slot-result { background-color: #ffe9f4; }
 </style>
+<style id="citypop-board-20251125">
+/* ===== 結果ボードをシティポップ配色に（2025-11-25）=====
+   ベスト5ショートで使った松原みき・竹内まりやのジャケットのような、
+   夕焼けグラデーション（水色→ピンク→オレンジ）を結果ボードに使う。
+   背景そのもの（1曲＝明るい青／コーデ＝明るいピンク）は変えず、ボードだけ変更。
+   青海波の薄い模様はグラデーションの上に重ねて残す。
+   商品データ・リンク・動作・【PR】表記・フォントには触れていない */
+#songMachine .song-result {
+background-color: #ffc9a8;
+background-image: var(--wa-rings), linear-gradient(168deg, #aee6ff 0%, #ffd3e8 34%, #ffb98a 68%, #ff9e7a 100%);
+background-size: 48px 48px, auto;
+border-color: #ff8f6b;
+}
+#songMachine .song-result .song-cap { color: #c2185b; }
+#songMachine .song-presenter { background: #fff0d0; color: #a85b12; }
+#coordRoulette .slot-result {
+background-color: #ffc4d8;
+background-image: var(--wa-rings), linear-gradient(168deg, #fff2f8 0%, #ffd9e9 38%, #ffb7d5 72%, #ffc9a3 100%);
+background-size: 48px 48px, auto;
+border-color: #ff8fab;
+}
+#coordRoulette .slot-result .slot-cap { color: #c22e7f; }
+</style>
 </head>
 <body>
 <main>
