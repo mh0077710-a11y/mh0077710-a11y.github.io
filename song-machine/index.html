@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-    <meta name="color-scheme" content="dark" />
+    <meta name="color-scheme" content="light" />
     <link rel="icon" href="data:," />
     <title>今日の1曲マシン</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -14,10 +14,10 @@
     />
     <style>
       :root {
-        color-scheme: dark;
-        --sky-top: #150f38;
-        --sky-mid: #2c1a5e;
-        --sky-bottom: #4a2060;
+        color-scheme: light;
+        --sky-top: #a5deff;
+        --sky-mid: #63baff;
+        --sky-bottom: #3796e6;
         --card:
           url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='150' height='150' viewBox='0 0 150 150'%3E%3Cg fill='%23f0568f' fill-opacity='0.55' stroke='%23e7549a' stroke-opacity='0.45' stroke-width='1'%3E%3Cpath d='M0,-13 C5.5,-6 7.5,3 0,13 C-7.5,3 -5.5,-6 0,-13 Z' transform='translate(34 36) rotate(24) scale(1.12)'/%3E%3Cpath d='M0,-13 C5.5,-6 7.5,3 0,13 C-7.5,3 -5.5,-6 0,-13 Z' transform='translate(104 66) rotate(96) scale(0.95)'/%3E%3Cpath d='M0,-13 C5.5,-6 7.5,3 0,13 C-7.5,3 -5.5,-6 0,-13 Z' transform='translate(62 118) rotate(-32) scale(0.78)'/%3E%3Cpath d='M0,-13 C5.5,-6 7.5,3 0,13 C-7.5,3 -5.5,-6 0,-13 Z' transform='translate(128 128) rotate(150) scale(0.66)'/%3E%3Cg fill='%2369a84f' fill-opacity='0.5'%3E%3Cpath d='M0,-12 C5,-5 5,5 0,12 C-5,5 -5,-5 0,-12 Z' transform='translate(84 24) rotate(48) scale(0.85)'/%3E%3Cpath d='M0,-12 C5,-5 5,5 0,12 C-5,5 -5,-5 0,-12 Z' transform='translate(22 94) rotate(-64) scale(0.7)'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E"),
           linear-gradient(180deg, #fff8fa 0%, #ffe9f1 55%, #ffd9e6 100%);
@@ -29,9 +29,9 @@
         --btn-article: #2e7fc4;
         --btn-room: #bf0000;
         --btn-video: #3d3d3d;
-        --shadow: 0 12px 32px rgba(0, 0, 0, 0.5), 0 0 46px rgba(150, 90, 255, 0.3);
-        --result-bg: linear-gradient(180deg, #fffdf5 0%, #ffedb8 100%);
-        --result-border: #ffd968;
+        --shadow: 0 12px 32px rgba(16, 78, 139, 0.35), 0 0 46px rgba(140, 210, 255, 0.5);
+        --result-bg: linear-gradient(180deg, #f4fbff 0%, #d8efff 100%);
+        --result-border: #7cc4f7;
       }
       * { box-sizing: border-box; }
       html, body { margin: 0; padding: 0; }
@@ -39,9 +39,9 @@
         font-family: "M PLUS Rounded 1c", "Hiragino Maru Gothic ProN", sans-serif;
         color: var(--ink);
         background:
-          radial-gradient(620px 300px at 88% -60px, rgba(255, 94, 168, 0.38), transparent 62%),
+          radial-gradient(620px 300px at 88% -60px, rgba(255, 140, 200, 0.20), transparent 62%),
           radial-gradient(720px 360px at -12% 26%, rgba(46, 168, 255, 0.3), transparent 62%),
-          radial-gradient(560px 300px at 50% 112%, rgba(245, 184, 29, 0.2), transparent 62%),
+          radial-gradient(560px 300px at 50% 112%, rgba(255, 255, 255, 0.22), transparent 62%),
           linear-gradient(180deg, var(--sky-top) 0%, var(--sky-mid) 55%, var(--sky-bottom) 100%);
         background-color: var(--sky-bottom);
         min-height: 100vh;
@@ -80,9 +80,9 @@
         font-size: 12.5px;
         font-weight: 700;
         line-height: 1.65;
-        color: #eaf6ff;
-        background: rgba(255, 255, 255, 0.14);
-        border: 1px solid rgba(255, 255, 255, 0.35);
+        color: #103f63;
+        background: rgba(255, 255, 255, 0.55);
+        border: 1px solid rgba(255, 255, 255, 0.8);
         border-radius: 999px;
         padding: 7px 14px;
       }
@@ -209,7 +209,7 @@
         100% { transform: scale(1); opacity: 1; }
       }
       .result .cap {
-        font-size: 12px; font-weight: 800; color: #b97e0a;
+        font-size: 12px; font-weight: 800; color: #1668ad;
         letter-spacing: 1px;
       }
       .result h2 { margin: 5px 0 2px; font-size: 18px; font-weight: 800; line-height: 1.35; }
@@ -259,7 +259,7 @@
         font-size: 11.5px;
         font-weight: 700;
         line-height: 1.8;
-        color: #dcefff;
+        color: #0d3a5c;
       }
       footer .foot-links { margin-top: 8px; display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
       footer .foot-links a {
