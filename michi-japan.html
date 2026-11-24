@@ -228,7 +228,7 @@ button.fair-btn{font-family:inherit;border:none;cursor:pointer;width:100%}
 #dj-best5-stage{scroll-margin-top:16px;margin:0;padding:14px 14px 16px}
 #dj-best5-stage .fair-stage-lead{font-size:17px;margin-bottom:8px}
 #dj-best5-stage .fair-stage-hint{font-size:13px;margin:-2px 0 12px;line-height:1.55}
-#dj-best5-stage .fair-slot-wrap{width:min(64%,216px);aspect-ratio:1/1;margin:0 auto}
+#dj-best5-stage .fair-slot-wrap{width:min(86%,310px);aspect-ratio:1/1;margin:0 auto}
 #dj-best5-stage .fair-slot{display:block;width:100%;height:100%;aspect-ratio:1/1;padding:0;margin:0;overflow:hidden;line-height:0}
 #dj-best5-stage .fair-slot img{width:100%;height:100%;aspect-ratio:1/1;object-fit:cover;object-position:center;display:block}
 #dj-best5-stage .fair-result{margin-top:10px}
@@ -238,7 +238,7 @@ button.fair-btn{font-family:inherit;border:none;cursor:pointer;width:100%}
 .dj-crown{top:-14px;left:50%;right:auto;transform:translateX(-50%) rotate(-7deg)}
 /* ===== 大谷：写真サイズ調整＋商品陳列の拡充（2026-11-24） ===== */
 /* ルーレットの窓を小さくして、大谷選手の着用写真が大きく出過ぎないようにする（DJステージは対象外） */
-#ohtani-stage .fair-slot-wrap{width:min(54%,188px)}
+#ohtani-stage .fair-slot-wrap{width:min(88%,330px)}
 /* 陳列カードは商品全体が見えるよう、切り取らずに収める */
 .fair-card img{object-fit:contain;padding:6px}
 /* 着用写真（顔のアップ）はカードいっぱいにせず、額に入れた写真のように小さく見せる */
@@ -301,6 +301,33 @@ img{height:auto}
 /* タップの反応を速く・確実にする（ダブルタップズーム待ちによる反応遅れをなくす） */
 a,button{touch-action:manipulation}
 </style>
+<style>
+/* ===== おみくじ パラパラ演出（2026-11-24） ===== */
+/* 引くときに、おみくじの紙がパラパラとめくれて運勢が切り替わる感触を足す。アニメーションはステージ内だけに付け、ボタン本体は動かさない（タップ判定を壊さないため） */
+.omikuji-stage{perspective:700px}
+.omikuji-flip{display:flex;flex-direction:column;align-items:center;gap:12px}
+.omikuji-flip[hidden]{display:none}
+.omikuji-stack{position:relative;width:118px;height:158px;isolation:isolate}
+.omikuji-stack::before,.omikuji-stack::after{content:"";position:absolute;inset:0;background:#FFF3D6;border:2px solid #E8B04B;border-radius:10px;z-index:0}
+.omikuji-stack::before{transform:rotate(-7deg) translateX(-6px)}
+.omikuji-stack::after{transform:rotate(6deg) translateX(6px)}
+.omikuji-paper{position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,#FFFFFF 0%,#FFF8EC 100%);border:2px solid var(--verm);border-radius:10px;box-shadow:0 10px 22px rgba(185,31,14,.28);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;transform-origin:50% 0%}
+.omikuji-paper.flipping{animation:omikuji-flip .16s ease-in-out}
+.omikuji-paper-band{font-size:12px;font-weight:900;color:#fff;background:var(--verm);border-radius:999px;padding:3px 11px;letter-spacing:.08em}
+.omikuji-paper-face{font-size:40px;font-weight:900;color:var(--verm);letter-spacing:.06em;line-height:1.1}
+.omikuji-flip-hint{margin:0;font-size:13.5px;font-weight:800;color:var(--muted)}
+.omikuji-scrap{position:absolute;z-index:2;width:16px;height:22px;background:#fff;border:1.5px solid var(--gold);border-radius:3px;opacity:0;pointer-events:none}
+.omikuji-scrap.s1{left:-28px;top:12px}
+.omikuji-scrap.s2{right:-28px;top:30px}
+.omikuji-scrap.s3{right:-16px;bottom:4px}
+.omikuji-flip.playing .omikuji-scrap{animation:omikuji-flutter 1.5s ease-out}
+.omikuji-flip.playing .omikuji-scrap.s2{animation-delay:.18s}
+.omikuji-flip.playing .omikuji-scrap.s3{animation-delay:.36s}
+@keyframes omikuji-flip{0%{transform:rotateX(0deg) translateY(0)}45%{transform:rotateX(82deg) translateY(-4px)}100%{transform:rotateX(0deg) translateY(0)}}
+@keyframes omikuji-flutter{0%{opacity:0;transform:translateY(8px) rotate(0deg)}15%{opacity:1}100%{opacity:0;transform:translateY(-48px) rotate(200deg)}}
+.omikuji-result.reveal{animation:omikuji-unfold .55s ease;transform-origin:50% 0%}
+@keyframes omikuji-unfold{0%{transform:rotateX(-68deg);opacity:0}100%{transform:rotateX(0deg);opacity:1}}
+</style>
 </head>
 <body>
   <div class="page">
@@ -332,8 +359,8 @@ a,button{touch-action:manipulation}
 
     <nav class="cat-nav" aria-label="カテゴリー">
       <ul class="cat-list">
-        <li><a class="cat-btn c-play" href="#play">🎮 あそびコーナー</a></li>
         <li><a class="cat-btn c-fair" href="#fair">⚾ 大谷フェア</a></li>
+        <li><a class="cat-btn c-play" href="#play">🎮 あそびコーナー</a></li>
         <li><a class="cat-btn c-links" href="#links">🔗 リンク</a></li>
         <li><a class="cat-btn c-travel" href="#travel">✈️ 旅行・お得情報</a></li>
         <li><a class="cat-btn c-tonight" href="#tonight">🎧 今夜の1枚</a></li>
@@ -341,79 +368,6 @@ a,button{touch-action:manipulation}
         <li><a class="cat-btn c-shop" href="#products">🛍️ 紹介した商品</a></li>
       </ul>
     </nav>
-
-    <div class="divider" aria-hidden="true"><span>🎮 あそびコーナー</span></div>
-
-    <section class="playzone" id="play" aria-label="あそびコーナー">
-
-      <article class="game game-omikuji">
-        <div class="game-head">
-          <h2>⛩️ 富士山おみくじ</h2>
-          <p>今日の運勢と、ラッキーな日本の逸品を占おう！</p>
-        </div>
-        <div class="game-body">
-          <div class="omikuji-stage" id="omikujiStage">
-            <div id="omikujiIdle">
-              <div class="omikuji-fuji" aria-hidden="true">🗻</div>
-              <p class="omikuji-hint">下のボタンを押してね</p>
-            </div>
-            <div class="omikuji-result" id="omikujiResult" hidden>
-              <div class="fortune" id="fortuneText"></div>
-              <p class="fortune-msg" id="fortuneMsg"></p>
-              <div class="lucky-box">
-                <span class="lucky-label">🎁 今日のラッキーな日本の逸品</span>
-                <a class="lucky-item" id="luckyItem" href="#" target="_blank" rel="noopener noreferrer" aria-label="今日のラッキーな日本の逸品を楽天ROOMで見る"></a>
-              </div>
-              <a class="cta-btn cta-red lucky-link" id="luckyLink" href="#" rel="noopener noreferrer" hidden target="_blank">🛒 この逸品を楽天ROOMで見る ›</a>
-            </div>
-          </div>
-          <button class="cta-btn cta-red" id="omikujiBtn" type="button">🎋 おみくじを引く</button>
-        </div>
-      </article>
-
-      <article class="game game-quiz">
-        <div class="game-head">
-          <h2>🧠 日本文化クイズ</h2>
-          <p>富士山・浮世絵・伝統工芸の3問クイズに挑戦！</p>
-        </div>
-        <div class="game-body">
-          <div id="quizBody">
-            <span class="quiz-progress" id="quizProgress">第1問 / 3問</span>
-            <p class="quiz-q" id="quizQ"></p>
-            <div class="quiz-opts" id="quizOpts"></div>
-            <p class="quiz-feedback" id="quizFeedback" aria-live="polite"></p>
-          </div>
-          <div class="quiz-result" id="quizResult" hidden>
-            <div class="quiz-score" id="quizScore"></div>
-            <div class="quiz-level" id="quizLevel"></div>
-            <p class="quiz-level-msg" id="quizLevelMsg"></p>
-            <div class="lucky-box">
-              <span class="lucky-label">🎁 クイズのごほうび！今日のおすすめ</span>
-              <a class="lucky-item" id="quizPrizeName" href="#" target="_blank" rel="noopener noreferrer" aria-label="今日のおすすめ商品を楽天ROOMで見る"></a>
-              <span class="roulette-price" id="quizPrizePrice" style="margin:4px 0 0"></span>
-            </div>
-            <a class="cta-btn cta-red lucky-link" id="quizPrizeLink" href="#" rel="noopener noreferrer" target="_blank">🛒 この商品を楽天ROOMで見る ›</a>
-            <button class="cta-btn cta-blue" id="quizRetry" type="button" style="margin-top:10px">🔁 もう一度挑戦する</button>
-            <a class="cta-btn cta-gold quiz-shop-link" href="#products">🛍️ おすすめ商品を見る ›</a>
-          </div>
-        </div>
-      </article>
-
-      <article class="game game-roulette">
-        <div class="game-head">
-          <h2>🎰 おすすめ商品ルーレット</h2>
-          <p>回すと「紹介した商品」の中から、今日のおすすめが当たる！</p>
-        </div>
-        <div class="game-body">
-          <div class="roulette-window" id="rouletteWindow" aria-live="polite"><span id="rouletteText">当たるかな…？🎲</span></div>
-          <div class="roulette-result" id="rouletteResult" hidden>
-            <span class="roulette-price" id="roulettePrice"></span>
-            <a class="cta-btn cta-gold" id="rouletteLink" href="#" rel="noopener noreferrer" target="_blank">🛒 楽天ROOMでこの商品を見る ›</a>
-          </div>
-          <button class="cta-btn cta-gold" id="rouletteBtn" type="button">🎯 ルーレットを回す</button>
-        </div>
-      </article>
-    </section>
 
     <div class="divider" aria-hidden="true"><span>⚾ 特集コーナー</span></div>
 
@@ -806,6 +760,91 @@ a,button{touch-action:manipulation}
     </a>
     <a class="no1-text-link" id="no1TextLink" href="#ohtani-stage" aria-label="1位の発表はここをタッチしてください — 発表ステージへジャンプします">🏆 1位の発表はここをタッチしてください！</a>
 
+    <div class="divider" aria-hidden="true"><span>🎮 あそびコーナー</span></div>
+
+    <section class="playzone" id="play" aria-label="あそびコーナー">
+
+      <article class="game game-omikuji">
+        <div class="game-head">
+          <h2>⛩️ 富士山おみくじ</h2>
+          <p>今日の運勢と、ラッキーな日本の逸品を占おう！</p>
+        </div>
+        <div class="game-body">
+          <div class="omikuji-stage" id="omikujiStage">
+            <div id="omikujiIdle">
+              <div class="omikuji-fuji" aria-hidden="true">🗻</div>
+              <p class="omikuji-hint">下のボタンを押してね</p>
+            </div>
+            <div class="omikuji-flip" id="omikujiFlip" hidden aria-hidden="true">
+              <div class="omikuji-stack">
+                <div class="omikuji-paper" id="omikujiPaper">
+                  <span class="omikuji-paper-band">⛩️ おみくじ</span>
+                  <span class="omikuji-paper-face" id="omikujiPaperFace">大吉</span>
+                </div>
+                <span class="omikuji-scrap s1"></span>
+                <span class="omikuji-scrap s2"></span>
+                <span class="omikuji-scrap s3"></span>
+              </div>
+              <p class="omikuji-flip-hint">パラパラ…運勢をめくっています</p>
+            </div>
+            <div class="omikuji-result" id="omikujiResult" hidden>
+              <div class="fortune" id="fortuneText"></div>
+              <p class="fortune-msg" id="fortuneMsg"></p>
+              <div class="lucky-box">
+                <span class="lucky-label">🎁 今日のラッキーな日本の逸品</span>
+                <a class="lucky-item" id="luckyItem" href="#" target="_blank" rel="noopener noreferrer" aria-label="今日のラッキーな日本の逸品を楽天ROOMで見る"></a>
+              </div>
+              <a class="cta-btn cta-red lucky-link" id="luckyLink" href="#" rel="noopener noreferrer" hidden target="_blank">🛒 この逸品を楽天ROOMで見る ›</a>
+            </div>
+          </div>
+          <button class="cta-btn cta-red" id="omikujiBtn" type="button">🎋 おみくじを引く</button>
+        </div>
+      </article>
+
+      <article class="game game-quiz">
+        <div class="game-head">
+          <h2>🧠 日本文化クイズ</h2>
+          <p>富士山・浮世絵・伝統工芸の3問クイズに挑戦！</p>
+        </div>
+        <div class="game-body">
+          <div id="quizBody">
+            <span class="quiz-progress" id="quizProgress">第1問 / 3問</span>
+            <p class="quiz-q" id="quizQ"></p>
+            <div class="quiz-opts" id="quizOpts"></div>
+            <p class="quiz-feedback" id="quizFeedback" aria-live="polite"></p>
+          </div>
+          <div class="quiz-result" id="quizResult" hidden>
+            <div class="quiz-score" id="quizScore"></div>
+            <div class="quiz-level" id="quizLevel"></div>
+            <p class="quiz-level-msg" id="quizLevelMsg"></p>
+            <div class="lucky-box">
+              <span class="lucky-label">🎁 クイズのごほうび！今日のおすすめ</span>
+              <a class="lucky-item" id="quizPrizeName" href="#" target="_blank" rel="noopener noreferrer" aria-label="今日のおすすめ商品を楽天ROOMで見る"></a>
+              <span class="roulette-price" id="quizPrizePrice" style="margin:4px 0 0"></span>
+            </div>
+            <a class="cta-btn cta-red lucky-link" id="quizPrizeLink" href="#" rel="noopener noreferrer" target="_blank">🛒 この商品を楽天ROOMで見る ›</a>
+            <button class="cta-btn cta-blue" id="quizRetry" type="button" style="margin-top:10px">🔁 もう一度挑戦する</button>
+            <a class="cta-btn cta-gold quiz-shop-link" href="#products">🛍️ おすすめ商品を見る ›</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="game game-roulette">
+        <div class="game-head">
+          <h2>🎰 おすすめ商品ルーレット</h2>
+          <p>回すと「紹介した商品」の中から、今日のおすすめが当たる！</p>
+        </div>
+        <div class="game-body">
+          <div class="roulette-window" id="rouletteWindow" aria-live="polite"><span id="rouletteText">当たるかな…？🎲</span></div>
+          <div class="roulette-result" id="rouletteResult" hidden>
+            <span class="roulette-price" id="roulettePrice"></span>
+            <a class="cta-btn cta-gold" id="rouletteLink" href="#" rel="noopener noreferrer" target="_blank">🛒 楽天ROOMでこの商品を見る ›</a>
+          </div>
+          <button class="cta-btn cta-gold" id="rouletteBtn" type="button">🎯 ルーレットを回す</button>
+        </div>
+      </article>
+    </section>
+
     <div class="divider" aria-hidden="true"><span>Follow &amp; Explore</span></div>
 
     <nav id="links" aria-label="Michi Japan links">
@@ -930,61 +969,11 @@ a,button{touch-action:manipulation}
           </a>
         </li>
         <li>
-          <a class="link-btn" href="https://yesim.tpk.mx/XqaxzeGi" target="_blank" rel="noopener noreferrer sponsored">
-            <span class="icon esim2" aria-hidden="true">📱</span>
-            <span class="link-text">
-              <span class="link-title">Yesim eSIM</span>
-              <span class="link-sub">旅行用eSIM（データ通信）</span>
-            </span>
-            <span class="chev" aria-hidden="true">›</span>
-          </a>
-        </li>
-        <li>
-          <a class="link-btn" href="https://saily.tpk.mx/VPlOqxHE" target="_blank" rel="noopener noreferrer sponsored">
-            <span class="icon esim3" aria-hidden="true">🌐</span>
-            <span class="link-text">
-              <span class="link-title">Saily eSIM</span>
-              <span class="link-sub">旅行用eSIMアプリ</span>
-            </span>
-            <span class="chev" aria-hidden="true">›</span>
-          </a>
-        </li>
-        <li>
-          <a class="link-btn" href="https://aviasales.tpk.mx/Vns189w7" target="_blank" rel="noopener noreferrer sponsored">
-            <span class="icon flight" aria-hidden="true">✈️</span>
-            <span class="link-text">
-              <span class="link-title">Aviasales</span>
-              <span class="link-sub">お得な航空券の検索・予約</span>
-            </span>
-            <span class="chev" aria-hidden="true">›</span>
-          </a>
-        </li>
-        <li>
           <a class="link-btn" href="https://kkday.tpk.mx/JwqY7RmY" target="_blank" rel="noopener noreferrer sponsored">
             <span class="icon kkd" aria-hidden="true">🗾</span>
             <span class="link-text">
               <span class="link-title">KKday</span>
               <span class="link-sub">アジアのツアー・体験予約</span>
-            </span>
-            <span class="chev" aria-hidden="true">›</span>
-          </a>
-        </li>
-        <li>
-          <a class="link-btn" href="https://tiqets.tpk.mx/8Fx7tcpl" target="_blank" rel="noopener noreferrer sponsored">
-            <span class="icon tiq" aria-hidden="true">🏛️</span>
-            <span class="link-text">
-              <span class="link-title">Tiqets</span>
-              <span class="link-sub">美術館・観光スポットのチケット</span>
-            </span>
-            <span class="chev" aria-hidden="true">›</span>
-          </a>
-        </li>
-        <li>
-          <a class="link-btn" href="https://gocity.tpk.mx/7EFPS6qZ" target="_blank" rel="noopener noreferrer sponsored">
-            <span class="icon gocity" aria-hidden="true">🎫</span>
-            <span class="link-text">
-              <span class="link-title">Go City</span>
-              <span class="link-sub">都市周遊パスでお得に観光</span>
             </span>
             <span class="chev" aria-hidden="true">›</span>
           </a>
@@ -1208,13 +1197,6 @@ a,button{touch-action:manipulation}
         </li>
         <li class="product">
           <div class="product-info">
-            <span class="product-name">岩鋳 南部鉄器 急須5型 菊 金/麻色</span>
-            <span class="product-price">¥12,650</span>
-          </div>
-          <a class="shop-btn" href="https://room.rakuten.co.jp/room_65512f9da7/1700399208957297" target="_blank" rel="noopener noreferrer">楽天ROOMで見る ›</a>
-        </li>
-        <li class="product">
-          <div class="product-info">
             <span class="product-name">カガミクリスタル 江戸切子グラス＜舞＞赤</span>
             <span class="product-price">¥24,200</span>
           </div>
@@ -1275,7 +1257,6 @@ a,button{touch-action:manipulation}
   var PRODUCTS = [
     { name:"色が変わる富士山ペーパーウェイト", price:"¥3,960", url:"https://room.rakuten.co.jp/room_65512f9da7/1700399208151663" },
     { name:"北斎 富嶽三十六景 神奈川沖浪裏 ポスターA3", price:"¥1,400", url:"https://room.rakuten.co.jp/room_65512f9da7/1700399208643317" },
-    { name:"岩鋳 南部鉄器 急須5型 菊 金/麻色", price:"¥12,650", url:"https://room.rakuten.co.jp/room_65512f9da7/1700399208957297" },
     { name:"カガミクリスタル 江戸切子グラス＜舞＞赤", price:"¥24,200", url:"https://room.rakuten.co.jp/room_65512f9da7/1700399209238307" },
     { name:"大判風呂敷 両面染め 約140cm", price:"¥1,470", url:"https://room.rakuten.co.jp/room_65512f9da7/1700399209500124" },
     { name:"選べるミニ盆栽と道具のセット", price:"¥12,980", url:"https://room.rakuten.co.jp/room_65512f9da7/1700399209739181" },
@@ -1314,6 +1295,9 @@ a,button{touch-action:manipulation}
   var omBtn = document.getElementById("omikujiBtn");
   var omStage = document.getElementById("omikujiStage");
   var omIdle = document.getElementById("omikujiIdle");
+  var omFlip = document.getElementById("omikujiFlip");
+  var omPaper = document.getElementById("omikujiPaper");
+  var omPaperFace = document.getElementById("omikujiPaperFace");
   var omResult = document.getElementById("omikujiResult");
   var omFortune = document.getElementById("fortuneText");
   var omMsg = document.getElementById("fortuneMsg");
@@ -1324,21 +1308,25 @@ a,button{touch-action:manipulation}
     if (omBusy) return;
     omBusy = true;
     omBtn.disabled = true;
-    omBtn.textContent = "占っています…🔮";
+    omBtn.textContent = "パラパラめくっています…📖";
+    var f = FORTUNES[rand(FORTUNES.length)];
+    var lucky = LUCKY_ITEMS[rand(LUCKY_ITEMS.length)];
     function show(){
-      var f = FORTUNES[rand(FORTUNES.length)];
       omFortune.textContent = f.label;
       omMsg.textContent = f.msg;
-      var lucky = LUCKY_ITEMS[rand(LUCKY_ITEMS.length)];
       omLucky.textContent = lucky.name;
       omLucky.href = lucky.url;
       omLuckyLink.href = lucky.url;
       omLuckyLink.hidden = false;
       omIdle.hidden = true;
+      omFlip.hidden = true;
+      omFlip.classList.remove("playing");
       omResult.hidden = false;
       omResult.classList.remove("pop");
+      omResult.classList.remove("reveal");
       void omResult.offsetWidth;
       omResult.classList.add("pop");
+      omResult.classList.add("reveal");
       omBtn.textContent = "🎋 もう一度引く";
       omBtn.disabled = false;
       omBusy = false;
@@ -1347,10 +1335,35 @@ a,button{touch-action:manipulation}
     omStage.classList.remove("shaking");
     void omStage.offsetWidth;
     omStage.classList.add("shaking");
-    setTimeout(function(){
-      omStage.classList.remove("shaking");
-      show();
-    }, 520);
+    omIdle.hidden = true;
+    omResult.hidden = true;
+    omFlip.hidden = false;
+    omFlip.classList.remove("playing");
+    void omFlip.offsetWidth;
+    omFlip.classList.add("playing");
+    var delays = [85, 85, 95, 105, 120, 140, 165, 200, 250];
+    var step = 0;
+    function flipStep(){
+      if (step < delays.length){
+        omPaperFace.textContent = FORTUNES[rand(FORTUNES.length)].label;
+        omPaper.classList.remove("flipping");
+        void omPaper.offsetWidth;
+        omPaper.classList.add("flipping");
+        var d = delays[step];
+        step++;
+        setTimeout(flipStep, d);
+      } else {
+        omPaperFace.textContent = f.label;
+        omPaper.classList.remove("flipping");
+        void omPaper.offsetWidth;
+        omPaper.classList.add("flipping");
+        setTimeout(function(){
+          omStage.classList.remove("shaking");
+          show();
+        }, 280);
+      }
+    }
+    setTimeout(flipStep, 60);
   });
 
   var QUIZ = [
