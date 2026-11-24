@@ -364,6 +364,76 @@ repeating-linear-gradient(45deg, rgba(161, 42, 119,.05) 0, rgba(161, 42, 119,.05
 #coordRoulette .slot-links a { letter-spacing:.03em;}
 #coordRoulette > .pr-note { letter-spacing:.01em;}
 </style>
+<style id="layout-fix-20251125">
+/* ===== レイアウト修正（2025-11-25・実機報告対応）=====
+   ・タイトル「今日のコーデルーレット」が文節の途中で折れないようにする
+   ・回転中の名前表示の高さを固定し、下のボタンが上下に揺れない（落ちない）ようにする
+   ・白い面を、ブランドファッションに合う淡いブラッシュピンクに変える
+   商品データ・リンク・ルーレットの動作・【PR】表記には触れていない */
+
+/* ---- 全体の安全策：横はみ出し防止と1列の整え ---- */
+html, body { overflow-x: hidden; overflow-x: clip;}
+img { max-width: 100%;}
+#coordRoulette > * { max-width: 100%;}
+#coordRoulette .lead,
+#coordRoulette .slot-now,
+#coordRoulette .slot-status,
+#coordRoulette > .pr-note { width: 100%;}
+
+/* ---- タイトルを折らない ---- */
+.site-head h1 {
+font-size: clamp(21px, 6.6vw, 42px);
+letter-spacing: .03em;
+word-break: keep-all;
+overflow-wrap: normal;
+}
+/* カード見出しは【PR】タグと横並びにせず、縦に揃えて全幅を使う */
+#coordRoulette .shelf-head {
+flex-direction: column;
+align-items: center;
+justify-content: center;
+gap: 6px;
+}
+#coordRoulette .shelf-head h2 {
+font-size: clamp(20px, 6.4vw, 34px);
+letter-spacing: 0;
+word-break: keep-all;
+overflow-wrap: normal;
+}
+#coordRoulette .pr-tag { margin-top: 0;}
+#coordRoulette .slot-result .slot-cap { word-break: auto-phrase; font-size: clamp(20px, 5.6vw, 28px);}
+
+/* ---- 高さを固定して「落ち・揺れ」をなくす ---- */
+/* コーデ名は全件2行になる長さなので、2行分の高さを最初から確保する */
+#coordRoulette .slot-now {
+min-height: 60px;
+display: flex;
+align-items: center;
+justify-content: center;
+word-break: auto-phrase;
+}
+/* ステータス文も2行分を確保する */
+#coordRoulette .slot-status { min-height: 50px;}
+/* 結果カード内の名前・商品名は自然な文節でのみ折る */
+#coordRoulette .slot-result h3 { word-break: auto-phrase; overflow-wrap: break-word;}
+#coordRoulette .slot-photo-large { height: auto; background: #fdf3f8;}
+
+/* ---- 白い面をおしゃれな淡いカラーに ---- */
+/* 結果カード：淡いブラッシュピンク（上に敷いた細いクロスライン模様はそのまま重なる） */
+#coordRoulette .slot-result { background-color: #fceef5;}
+/* 【PR】タグ：淡いブラッシュピンク */
+#coordRoulette .pr-tag { background-color: #fdf0f6;}
+/* 戻るボタン・もう一度引くボタンなど --card を使う面も淡いピンクに（ライトモードのみ） */
+@media (prefers-color-scheme: light) {
+:root { --card: rgba(253, 241, 247,.96);}
+}
+
+/* ---- 小さい画面ではボタン文字を少し締めて収まりを良くする ---- */
+@media (max-width: 480px) {
+#coordRoulette .slot-links a { font-size: 15px; padding: 13px 12px;}
+#coordRoulette .slot-result { padding: 22px 16px 18px;}
+}
+</style>
 </head>
 <body>
 <main>
