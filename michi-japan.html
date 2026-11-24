@@ -278,6 +278,20 @@ button.fair-btn{font-family:inherit;border:none;cursor:pointer;width:100%}
 .fair-grid-head{font-size:18px;color:#003B66}
 .fair-note{padding-bottom:16px}
 </style>
+<style>
+/* ===== 写真の縦伸び修正（2026-11-24） ===== */
+/* 原因：大谷フェアの商品写真（.fair-card img）と目玉写真（.fair-featured img）には高さの指定がなく、写真データ側の高さ（600〜2048px）のまま箱が縦に伸びていた。ページ全体が異常に長くなり、スマホの動きも重くなっていた。バナー類が無事だったのは height:auto が明記されていたため。 */
+/* 対策1：全画像に height:auto を明記し、写真データ側の高さで箱が決まらないようにする（アバターやルーレット窓など height:100% を使う写真は、そちらの指定が優先される） */
+img{height:auto}
+/* 対策2：商品カードは写真の入れ物（リンク）自体を正方形に固定し、写真はその中いっぱいに収める。これでどの写真でも箱は正方形になり、縦伸びしない */
+.fair-card .fair-img-link{aspect-ratio:1/1;overflow:hidden}
+.fair-card .fair-img-link img{width:100%;height:100%;object-fit:contain}
+/* 着用写真だけは今まで通り、額に入れた写真のように少し小さく見せる（高さは明記して縦伸びを防ぐ） */
+.fair-card .fair-img-link.fair-card-photo img{width:74%;height:auto;aspect-ratio:1/1;object-fit:cover}
+/* 対策3：目玉商品の写真も入れ物を 4:3 に固定し、写真はその中に収める */
+.fair-featured .fair-img-link{aspect-ratio:4/3;overflow:hidden}
+.fair-featured .fair-img-link img{width:100%;height:100%;object-fit:contain}
+</style>
 </head>
 <body>
   <div class="page">
